@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-ink-900 text-white font-sans selection:bg-white selection:text-ink-900;
+  }
+}
+
+@layer utilities {
+  .border-thin {
+    @apply border-b border-white/10;
+  }
+}
+
+/* Minimalistic scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-ink-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/20 hover:bg-white/40 transition-colors;
+}
