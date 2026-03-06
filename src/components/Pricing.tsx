@@ -57,9 +57,32 @@ export default function Pricing() {
             });
         } else {
             console.error("Tinkoff widget not loaded.");
-            // Fallback: Manually open Tinkoff payment page if the script fails
-            const fallbackUrl = `https://securepay.tinkoff.ru/rest/Authorize?TerminalKey=1772819824877DEMO&Amount=3500000&OrderId=ORDER_${Date.now()}&Description=Бронь разработки дизайн-проекта`;
-            window.open(fallbackUrl, '_blank');
+            // Standard HTML Form submission as fallback if JS is blocked
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'https://securepay.tinkoff.ru/v2/Init';
+            form.target = '_blank';
+            form.style.display = 'none';
+
+            const params = {
+                TerminalKey: '1772819824877DEMO',
+                Amount: '3500000',
+                OrderId: 'ORDER_' + Date.now(),
+                Description: 'Бронь разработки дизайн-проекта',
+            };
+
+            for (const key in params) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                // @ts-ignore
+                input.value = params[key];
+                form.appendChild(input);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
         }
     };
 
