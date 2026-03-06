@@ -121,16 +121,16 @@ function App() {
                         {/* Legal Details */}
                         <div className="flex flex-col gap-2 text-[10px] md:text-xs text-white/30 font-sans leading-relaxed">
                             <span className="text-white/50 uppercase tracking-widest mb-1 text-[9px] md:text-[10px]">Реквизиты</span>
-                            <span>ИП Фамилия Имя Отчество [ЗАПОЛНИТЬ]</span>
-                            <span>ИНН: 000000000000 | ОГРНИП: 000000000000000</span>
-                            <span>Юр. адрес: г. Москва, ул. Примерная, д. 1 [ЗАПОЛНИТЬ]</span>
+                            <span>ИП Антонов Никита Сергеевич</span>
+                            <span>ИНН: 780634510121 | ОГРНИП: 320784700080501</span>
+                            <span>Юр. адрес: г. Санкт-Петербург</span>
                         </div>
 
                         {/* Contact & Support */}
                         <div className="flex flex-col gap-2 text-[10px] md:text-xs text-white/30 font-sans">
                             <span className="text-white/50 uppercase tracking-widest mb-1 text-[9px] md:text-[10px]">Служба Поддержки</span>
                             <a href="mailto:info@darkmatterint.ru" className="hover:text-white transition-colors">info@darkmatterint.ru</a>
-                            <a href="tel:+70000000000" className="hover:text-white transition-colors">+7 (000) 000-00-00 [ЗАПОЛНИТЬ]</a>
+                            <a href="tel:+79119117532" className="hover:text-white transition-colors">+7 (911) 911-75-32</a>
                         </div>
 
                         {/* Payments & Bank Links */}
