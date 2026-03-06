@@ -1,19 +1,6 @@
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
 
 export default function Pricing() {
-
-    useEffect(() => {
-        // Dynamically load the Tinkoff script to ensure it's available
-        const scriptId = 'tinkoff-payment-script';
-        if (!document.getElementById(scriptId)) {
-            const script = document.createElement('script');
-            script.id = scriptId;
-            script.src = "https://securepay.tinkoff.ru/html/payForm/js/tinkoff_v2.js";
-            script.async = true;
-            document.body.appendChild(script);
-        }
-    }, []);
 
     const prices = [
         {
@@ -42,47 +29,40 @@ export default function Pricing() {
         }
     ];
 
-    const handlePayment = async () => {
+    const handlePayment = () => {
+        const paymentData = {
+            terminalkey: "1772819824877DEMO",
+            amount: 35000,
+            order: "ORDER_" + Date.now(),
+            description: "Бронь разработки дизайн-проекта",
+            name: "",
+            email: "",
+            phone: "",
+        };
+
         // @ts-ignore
         if (window.tinkoff && window.tinkoff.pay) {
             // @ts-ignore
-            window.tinkoff.pay({
-                terminalkey: "1772819824877DEMO",
-                amount: 35000,
-                order: "ORDER_" + Date.now(),
-                description: "Бронь разработки дизайн-проекта",
-                name: "",
-                email: "",
-                phone: "",
-            });
+            window.tinkoff.pay(paymentData);
         } else {
-            console.warn("Tinkoff widget not loaded, trying API fallback...");
-            try {
-                const response = await fetch('https://securepay.tinkoff.ru/v2/Init', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        TerminalKey: '1772819824877DEMO',
-                        Amount: 3500000,
-                        OrderId: 'ORDER_' + Date.now(),
-                        Description: 'Бронь разработки дизайн-проекта',
-                    }),
-                });
+            const script = document.createElement('script');
+            script.src = "https://securepay.tinkoff.ru/html/payForm/js/tinkoff_v2.js";
 
-                const data = await response.json();
-
-                if (data.Success && data.PaymentURL) {
-                    window.location.href = data.PaymentURL;
+            script.onload = () => {
+                // @ts-ignore
+                if (window.tinkoff && window.tinkoff.pay) {
+                    // @ts-ignore
+                    window.tinkoff.pay(paymentData);
                 } else {
-                    console.error("Tinkoff Init Error:", data);
-                    alert(`Ошибка Т-Кассы: ${data.Message || 'Неизвестная ошибка'}. Пожалуйста, попробуйте позже.`);
+                    alert("Окно оплаты недоступно. Обновите страницу.");
                 }
-            } catch (error) {
-                console.error("Payment fallback error:", error);
-                alert("Не удалось соединиться с банком. Возможна блокировка скриптов.");
-            }
+            };
+
+            script.onerror = () => {
+                alert("К сожалению, скрипт банка заблокирован. Пожалуйста, отключите AdBlock или VPN.");
+            };
+
+            document.body.appendChild(script);
         }
     };
 
