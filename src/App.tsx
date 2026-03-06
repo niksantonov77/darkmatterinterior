@@ -102,22 +102,62 @@ function App() {
                 <Contact />
             </main>
 
-            {/* Footer Minimal */}
+            {/* Footer with Moderation Requirements */}
             <footer className="bg-ink-900 border-t border-white/5 py-12 md:py-16">
                 <div className="container mx-auto px-6 md:px-12 flex flex-col items-center md:items-start gap-8">
+
                     <div className="flex flex-col md:flex-row items-center justify-between w-full gap-8">
                         <p className="text-white/30 text-[10px] md:text-xs tracking-widest uppercase font-sans">
                             © {new Date().getFullYear()} Dark Matter Studio. Все права защищены.
                         </p>
-                        <div className="flex gap-8 text-[10px] md:text-xs uppercase tracking-widest text-white/50">
+                        <div className="flex gap-4 md:gap-8 text-[10px] md:text-xs uppercase tracking-widest text-white/50">
                             <a href="https://t.me/darkmatterstudio" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Telegram ↗</a>
+                            <a href="https://www.instagram.com/interior.darkmatter" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram ↗</a>
                         </div>
                     </div>
 
-                    <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-[10px] md:text-xs uppercase tracking-widest text-white/30 w-full justify-center md:justify-start">
+                    {/* Moderation Required Info Block */}
+                    <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mt-4 pt-8 border-t border-white/5">
+                        {/* Legal Details */}
+                        <div className="flex flex-col gap-2 text-[10px] md:text-xs text-white/30 font-sans leading-relaxed">
+                            <span className="text-white/50 uppercase tracking-widest mb-1 text-[9px] md:text-[10px]">Реквизиты</span>
+                            <span>ИП Фамилия Имя Отчество [ЗАПОЛНИТЬ]</span>
+                            <span>ИНН: 000000000000 | ОГРНИП: 000000000000000</span>
+                            <span>Юр. адрес: г. Москва, ул. Примерная, д. 1 [ЗАПОЛНИТЬ]</span>
+                        </div>
+
+                        {/* Contact & Support */}
+                        <div className="flex flex-col gap-2 text-[10px] md:text-xs text-white/30 font-sans">
+                            <span className="text-white/50 uppercase tracking-widest mb-1 text-[9px] md:text-[10px]">Служба Поддержки</span>
+                            <a href="mailto:info@darkmatterint.ru" className="hover:text-white transition-colors">info@darkmatterint.ru</a>
+                            <a href="tel:+70000000000" className="hover:text-white transition-colors">+7 (000) 000-00-00 [ЗАПОЛНИТЬ]</a>
+                        </div>
+
+                        {/* Payments & Bank Links */}
+                        <div className="flex flex-col gap-4 text-[10px] md:text-xs text-white/30">
+                            <span className="text-white/50 uppercase tracking-widest text-[9px] md:text-[10px]">Безопасная оплата</span>
+                            <div className="flex items-center gap-4">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Mir-logo.SVG" alt="MIR" className="h-3 md:h-4 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" className="h-3 md:h-4 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg" alt="Mastercard" className="h-4 md:h-5 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+                            </div>
+                            <div className="flex items-center gap-4 mt-1">
+                                <a href="https://tbank.ru" target="_blank" rel="noopener noreferrer" className="opacity-50 hover:opacity-100 transition-opacity flex items-center gap-2">
+                                    <img src="https://acdn.tinkoff.ru/static/pages/files/16f0fe78-cf5f-4ce0-a23d-0eafe09e8b7c.svg" alt="T-Pay" className="h-4" />
+                                </a>
+                                <a href="https://tbank.ru" target="_blank" rel="noopener noreferrer" className="opacity-50 hover:opacity-100 transition-opacity flex items-center gap-2">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Tinkoff_Bank_Logo_2024.svg" alt="T-Bank" className="h-4 md:h-5" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-4 md:gap-8 text-[9px] md:text-[10px] uppercase tracking-widest text-white/30 w-full mt-4 justify-center md:justify-start">
                         <Link to="/offer" className="hover:text-white transition-colors">Договор оферты</Link>
                         <Link to="/privacy" className="hover:text-white transition-colors">Политика конфиденциальности</Link>
+                        <Link to="/refund" className="hover:text-white transition-colors">Правила возврата</Link>
                     </div>
+
                 </div>
             </footer>
         </div>
