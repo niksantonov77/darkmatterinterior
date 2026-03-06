@@ -73,7 +73,7 @@ export default function Offer() {
                         <p>Расчетный счет (Т-Банк): 40802810000003097356</p>
                         <p>БИК: 044525974</p>
                         <p>Корр. счет: 30101810145250000974</p>
-                        <p>Email: info@darkmatterint.ru</p>
+                        <p>Email: interior.darkmatter@gmail.com</p>
                     </div>
                 </div>
             </div>

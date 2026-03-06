@@ -40,7 +40,7 @@ export default function Refund() {
                         <h2 className="text-xl font-medium text-white mb-4 uppercase tracking-wider text-xs">2. Порядок отмены услуг</h2>
                         <ul className="list-disc pl-5 space-y-2">
                             <li>Заказчик вправе отказаться от исполнения договора (отменить заказ) в любое время до сдачи ему результата работы, уплатив Исполнителю часть установленной цены пропорционально части работы, выполненной до получения извещения об отказе.</li>
-                            <li>Для отмены заказа и запроса на возврат средств необходимо направить письменное заявление на электронную почту службы поддержки: <a href="mailto:info@darkmatterint.ru" className="text-white hover:underline">info@darkmatterint.ru</a>.</li>
+                            <li>Для отмены заказа и запроса на возврат средств необходимо направить письменное заявление на электронную почту службы поддержки: <a href="mailto:interior.darkmatter@gmail.com" className="text-white hover:underline">interior.darkmatter@gmail.com</a>.</li>
                         </ul>
                     </section>
 
@@ -58,7 +58,7 @@ export default function Refund() {
                         <p className="mb-2">По всем вопросам, связанным с возвратом или отменой услуг, вы можете обращаться:</p>
                         <ul className="list-disc pl-5 space-y-2">
                             <li>Телефон службы поддержки (в разработке).</li>
-                            <li>Электронная почта: <a href="mailto:info@darkmatterint.ru" className="text-white hover:underline">info@darkmatterint.ru</a></li>
+                            <li>Электронная почта: <a href="mailto:interior.darkmatter@gmail.com" className="text-white hover:underline">interior.darkmatter@gmail.com</a></li>
                         </ul>
                     </section>
 

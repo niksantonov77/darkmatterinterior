@@ -129,7 +129,7 @@ function App() {
                         {/* Contact & Support */}
                         <div className="flex flex-col gap-2 text-[10px] md:text-xs text-white/30 font-sans">
                             <span className="text-white/50 uppercase tracking-widest mb-1 text-[9px] md:text-[10px]">Служба Поддержки</span>
-                            <a href="mailto:info@darkmatterint.ru" className="hover:text-white transition-colors">info@darkmatterint.ru</a>
+                            <a href="mailto:interior.darkmatter@gmail.com" className="hover:text-white transition-colors">interior.darkmatter@gmail.com</a>
                             <a href="tel:+79119117532" className="hover:text-white transition-colors">+7 (911) 911-75-32</a>
                         </div>
 
