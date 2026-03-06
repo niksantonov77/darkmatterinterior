@@ -103,42 +103,62 @@ export default function Portfolio() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="fixed inset-0 z-[100] bg-ink-900/98 backdrop-blur-xl flex flex-col"
-                        onClick={closeModal}
+                        transition={{ duration: 0.3 }}
+                        className="fixed inset-0 z-[100] bg-ink-900/98 backdrop-blur-xl flex flex-col overflow-hidden"
                     >
-                        <div className="absolute top-6 md:top-10 right-6 md:right-10 z-50">
-                            <button onClick={closeModal} className="text-white/50 hover:text-white transition-colors p-2 mix-blend-difference">
-                                <X size={32} strokeWidth={1} />
+                        <div className="absolute top-6 md:top-10 right-6 md:right-10 z-[110]">
+                            <button onClick={closeModal} className="text-white/50 hover:text-white transition-colors p-2 mix-blend-difference bg-ink-900/50 rounded-full">
+                                <X size={32} strokeWidth={1.5} />
                             </button>
                         </div>
 
-                        <div className="flex-1 relative flex items-center justify-center p-4 md:p-16" onClick={(e) => e.stopPropagation()}>
-                            <div className="absolute left-0 top-0 bottom-0 w-1/4 cursor-w-resize z-10" onClick={prevImage}></div>
-                            <div className="absolute right-0 top-0 bottom-0 w-1/4 cursor-e-resize z-10" onClick={nextImage}></div>
+                        <div className="flex-1 relative flex items-center justify-center overflow-hidden" onClick={closeModal}>
+                            {/* Navigation Zones for Desktop */}
+                            <div className="hidden md:block absolute left-0 top-0 bottom-0 w-1/4 cursor-w-resize z-[105]" onClick={prevImage}></div>
+                            <div className="hidden md:block absolute right-0 top-0 bottom-0 w-1/4 cursor-e-resize z-[105]" onClick={nextImage}></div>
+
+                            {/* Mobile Navigation Arrows */}
+                            <button onClick={prevImage} className="md:hidden absolute left-4 top-1/2 -translate-y-1/2 z-[110] text-white/50 hover:text-white bg-ink-900/50 p-2 rounded-full">
+                                <ChevronLeft size={32} />
+                            </button>
+                            <button onClick={nextImage} className="md:hidden absolute right-4 top-1/2 -translate-y-1/2 z-[110] text-white/50 hover:text-white bg-ink-900/50 p-2 rounded-full">
+                                <ChevronRight size={32} />
+                            </button>
 
                             <AnimatePresence mode="wait">
-                                <motion.img
+                                <motion.div
                                     key={selectedImageIdx}
-                                    src={chaoticImages[selectedImageIdx]}
-                                    alt={`Gallery Image ${selectedImageIdx}`}
-                                    initial={{ opacity: 0, scale: 0.98 }}
+                                    initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 1.02 }}
-                                    transition={{ duration: 0.5, ease: "easeOut" }}
-                                    className="max-w-full max-h-full object-contain pointer-events-none shadow-2xl"
-                                />
+                                    exit={{ opacity: 0, scale: 1.05 }}
+                                    transition={{ duration: 0.4, ease: "easeOut" }}
+                                    className="w-full h-full flex items-center justify-center p-2 md:p-12 z-[100]"
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    {/* Scrollable container for zooming on mobile */}
+                                    <div className="w-full h-full overflow-auto flex items-center justify-center custom-scrollbar">
+                                        <motion.img
+                                            drag
+                                            dragConstraints={{ left: -500, right: 500, top: -500, bottom: 500 }}
+                                            dragElastic={0.2}
+                                            src={chaoticImages[selectedImageIdx]}
+                                            alt={`Gallery Image ${selectedImageIdx}`}
+                                            className="max-w-none md:max-w-full max-h-[150vh] md:max-h-full object-contain cursor-grab active:cursor-grabbing shadow-2xl"
+                                            style={{ touchAction: 'pan-x pan-y' }}
+                                        />
+                                    </div>
+                                </motion.div>
                             </AnimatePresence>
 
-                            <button className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors pointer-events-none">
+                            <button className="hidden md:block absolute left-8 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors pointer-events-none z-[110]">
                                 <ChevronLeft size={48} strokeWidth={1} />
                             </button>
-                            <button className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors pointer-events-none">
+                            <button className="hidden md:block absolute right-8 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors pointer-events-none z-[110]">
                                 <ChevronRight size={48} strokeWidth={1} />
                             </button>
                         </div>
 
-                        <div className="absolute bottom-6 md:bottom-10 left-0 w-full text-center text-white/30 text-[10px] uppercase tracking-widest font-sans pointer-events-none">
+                        <div className="absolute bottom-6 md:bottom-10 left-0 w-full text-center text-white/50 text-xs uppercase tracking-widest font-sans pointer-events-none z-[110]">
                             {selectedImageIdx + 1} / {chaoticImages.length}
                         </div>
                     </motion.div>
