@@ -29,6 +29,25 @@ export default function Pricing() {
         }
     ];
 
+    const handlePayment = () => {
+        // @ts-ignore
+        if (window.tinkoff) {
+            // @ts-ignore
+            window.tinkoff.pay({
+                terminalkey: "1772819824877DEMO",
+                amount: 35000,
+                order: "ORDER_" + Date.now(),
+                description: "Бронь разработки дизайн-проекта",
+                name: "",
+                email: "",
+                phone: "",
+            });
+        } else {
+            console.error("Tinkoff widget not loaded");
+            alert("Сервис оплаты временно недоступен. Пожалуйста, попробуйте позже.");
+        }
+    };
+
     return (
         <section id="pricing" className="py-24 md:py-40 bg-ink-900 border-t border-white/5 relative">
             <div className="container mx-auto px-6 md:px-12">
@@ -99,7 +118,10 @@ export default function Pricing() {
                         <span className="text-3xl md:text-5xl font-medium tracking-tight text-white">
                             35 000 ₽
                         </span>
-                        <button className="w-full text-sm uppercase tracking-widest text-ink-900 bg-white px-8 py-4 hover:bg-white/80 transition-colors mt-2 font-medium">
+                        <button
+                            onClick={handlePayment}
+                            className="w-full text-sm uppercase tracking-widest text-ink-900 bg-white px-8 py-4 hover:bg-white/80 transition-colors mt-2 font-medium"
+                        >
                             Забронировать место
                         </button>
                     </div>
