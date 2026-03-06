@@ -31,7 +31,7 @@ export default function Pricing() {
 
     const handlePayment = () => {
         // @ts-ignore
-        if (window.tinkoff) {
+        if (window.tinkoff && window.tinkoff.pay) {
             // @ts-ignore
             window.tinkoff.pay({
                 terminalkey: "1772819824877DEMO",
@@ -43,8 +43,8 @@ export default function Pricing() {
                 phone: "",
             });
         } else {
-            console.error("Tinkoff widget not loaded");
-            alert("Сервис оплаты временно недоступен. Пожалуйста, попробуйте позже.");
+            console.error("Tinkoff widget not loaded or adblocker blocking it.");
+            alert("К сожалению, скрипт банка не загрузился. Убедитесь, что у вас отключен AdBlock или VPN, мешающий загрузке виджета Т-Банка.");
         }
     };
 
