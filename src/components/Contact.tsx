@@ -68,9 +68,9 @@ export default function Contact() {
                                         <MessageCircle size={18} className="text-white/40 group-hover/icon:text-white transition-colors" />
                                         <span>Telegram <span className="text-white/30 ml-2">@darkmatterstudio</span></span>
                                     </a>
-                                    <a href="https://instagram.com/darkmatterstudio" target="_blank" rel="noopener noreferrer" className="text-sm md:text-base text-white/70 hover:text-white transition-colors flex items-center gap-4 group/icon">
+                                    <a href="https://www.instagram.com/interior.darkmatter" target="_blank" rel="noopener noreferrer" className="text-sm md:text-base text-white/70 hover:text-white transition-colors flex items-center gap-4 group/icon">
                                         <Instagram size={18} className="text-white/40 group-hover/icon:text-white transition-colors" />
-                                        <span>Instagram <span className="text-white/30 ml-2">@darkmatterstudio</span></span>
+                                        <span>Instagram <span className="text-white/30 ml-2">@interior.darkmatter</span></span>
                                     </a>
                                 </div>
                             </div>
