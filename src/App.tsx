@@ -9,6 +9,7 @@ import Benefits from './components/Benefits';
 import Portfolio from './components/Portfolio';
 import Pricing from './components/Pricing';
 import Contact from './components/Contact';
+import { MirIcon, VisaIcon, MastercardIcon, TPayIcon, TBankIcon } from './components/PaymentIcons';
 
 function App() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -136,17 +137,17 @@ function App() {
                         {/* Payments & Bank Links */}
                         <div className="flex flex-col gap-4 text-[10px] md:text-xs text-white/30">
                             <span className="text-white/50 uppercase tracking-widest text-[9px] md:text-[10px]">Безопасная оплата</span>
-                            <div className="flex items-center gap-4">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Mir-logo.SVG" alt="MIR" className="h-3 md:h-4 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" className="h-3 md:h-4 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg" alt="Mastercard" className="h-4 md:h-5 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+                            <div className="flex items-center gap-6">
+                                <MirIcon className="h-4 md:h-5 text-white/30 hover:text-white transition-colors cursor-pointer" />
+                                <VisaIcon className="h-4 md:h-5 text-white/30 hover:text-white transition-colors cursor-pointer" />
+                                <MastercardIcon className="h-5 md:h-6 text-white/30 hover:text-white transition-colors cursor-pointer" />
                             </div>
-                            <div className="flex items-center gap-4 mt-1">
-                                <a href="https://tbank.ru" target="_blank" rel="noopener noreferrer" className="opacity-50 hover:opacity-100 transition-opacity flex items-center gap-2">
-                                    <img src="https://acdn.tinkoff.ru/static/pages/files/16f0fe78-cf5f-4ce0-a23d-0eafe09e8b7c.svg" alt="T-Pay" className="h-4" />
+                            <div className="flex items-center gap-6 mt-1">
+                                <a href="https://tbank.ru" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors flex items-center">
+                                    <TPayIcon className="h-5 md:h-6" />
                                 </a>
-                                <a href="https://tbank.ru" target="_blank" rel="noopener noreferrer" className="opacity-50 hover:opacity-100 transition-opacity flex items-center gap-2">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Tinkoff_Bank_Logo_2024.svg" alt="T-Bank" className="h-4 md:h-5" />
+                                <a href="https://tbank.ru" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors flex items-center">
+                                    <TBankIcon className="h-5 md:h-6" />
                                 </a>
                             </div>
                         </div>
