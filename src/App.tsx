@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Hero from './components/Hero';
 import About from './components/About';
 import Benefits from './components/Benefits';
@@ -114,8 +115,8 @@ function App() {
                     </div>
 
                     <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-[10px] md:text-xs uppercase tracking-widest text-white/30 w-full justify-center md:justify-start">
-                        <a href="/offer" className="hover:text-white transition-colors">Договор оферты</a>
-                        <a href="/privacy" className="hover:text-white transition-colors">Политика конфиденциальности</a>
+                        <Link to="/offer" className="hover:text-white transition-colors">Договор оферты</Link>
+                        <Link to="/privacy" className="hover:text-white transition-colors">Политика конфиденциальности</Link>
                     </div>
                 </div>
             </footer>
