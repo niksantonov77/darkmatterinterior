@@ -32,12 +32,9 @@ export default function Pricing() {
     const handlePayment = () => {
         const paymentData = {
             terminalkey: "1772819824877DEMO",
-            amount: 35000,
+            amount: "35000",
             order: "ORDER_" + Date.now(),
             description: "Бронь разработки дизайн-проекта",
-            name: "",
-            email: "",
-            phone: "",
         };
 
         // @ts-ignore
