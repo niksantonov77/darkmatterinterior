@@ -42,7 +42,7 @@ export default function Pricing() {
         }
     ];
 
-    const handlePayment = () => {
+    const handlePayment = async () => {
         // @ts-ignore
         if (window.tinkoff && window.tinkoff.pay) {
             // @ts-ignore
@@ -56,33 +56,33 @@ export default function Pricing() {
                 phone: "",
             });
         } else {
-            console.error("Tinkoff widget not loaded.");
-            // Standard HTML Form submission as fallback if JS is blocked
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = 'https://securepay.tinkoff.ru/v2/Init';
-            form.target = '_blank';
-            form.style.display = 'none';
+            console.warn("Tinkoff widget not loaded, trying API fallback...");
+            try {
+                const response = await fetch('https://securepay.tinkoff.ru/v2/Init', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        TerminalKey: '1772819824877DEMO',
+                        Amount: 3500000,
+                        OrderId: 'ORDER_' + Date.now(),
+                        Description: 'Бронь разработки дизайн-проекта',
+                    }),
+                });
 
-            const params = {
-                TerminalKey: '1772819824877DEMO',
-                Amount: '3500000',
-                OrderId: 'ORDER_' + Date.now(),
-                Description: 'Бронь разработки дизайн-проекта',
-            };
+                const data = await response.json();
 
-            for (const key in params) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                // @ts-ignore
-                input.value = params[key];
-                form.appendChild(input);
+                if (data.Success && data.PaymentURL) {
+                    window.location.href = data.PaymentURL;
+                } else {
+                    console.error("Tinkoff Init Error:", data);
+                    alert(`Ошибка Т-Кассы: ${data.Message || 'Неизвестная ошибка'}. Пожалуйста, попробуйте позже.`);
+                }
+            } catch (error) {
+                console.error("Payment fallback error:", error);
+                alert("Не удалось соединиться с банком. Возможна блокировка скриптов.");
             }
-
-            document.body.appendChild(form);
-            form.submit();
-            document.body.removeChild(form);
         }
     };
 
