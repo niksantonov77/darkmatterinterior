@@ -33,19 +33,17 @@ export default function Pricing() {
         const paymentData = {
             terminalkey: "1772819824877DEMO",
             frame: false,
+            language: "ru",
             amount: "35000",
             order: "ORDER_" + Date.now(),
-            description: "Бронь разработки дизайн-проекта",
-            name: "",
-            email: "",
-            phone: ""
+            description: "Бронь разработки дизайн-проекта"
         };
 
         try {
             // @ts-ignore
-            if (typeof window.pay === 'function') {
+            if (window.TinkoffWidget && typeof window.TinkoffWidget.pay === 'function') {
                 // @ts-ignore
-                window.pay(paymentData);
+                window.TinkoffWidget.pay(paymentData);
             } else {
                 console.error("Tinkoff SDK not found on window object", Object.keys(window));
                 alert("Ошибка инициализации виджета Т-Банка. Отключите блокировщики рекламы.");
