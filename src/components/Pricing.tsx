@@ -32,34 +32,27 @@ export default function Pricing() {
     const handlePayment = () => {
         const paymentData = {
             terminalkey: "1772819824877DEMO",
+            frame: false,
             amount: "35000",
             order: "ORDER_" + Date.now(),
             description: "Бронь разработки дизайн-проекта",
+            name: "",
+            email: "",
+            phone: ""
         };
 
-        // @ts-ignore
-        if (window.tinkoff && window.tinkoff.pay) {
+        try {
             // @ts-ignore
-            window.tinkoff.pay(paymentData);
-        } else {
-            const script = document.createElement('script');
-            script.src = "https://securepay.tinkoff.ru/html/payForm/js/tinkoff_v2.js";
-
-            script.onload = () => {
+            if (typeof window.pay === 'function') {
                 // @ts-ignore
-                if (window.tinkoff && window.tinkoff.pay) {
-                    // @ts-ignore
-                    window.tinkoff.pay(paymentData);
-                } else {
-                    alert("Окно оплаты недоступно. Обновите страницу.");
-                }
-            };
-
-            script.onerror = () => {
-                alert("К сожалению, скрипт банка заблокирован. Пожалуйста, отключите AdBlock или VPN.");
-            };
-
-            document.body.appendChild(script);
+                window.pay(paymentData);
+            } else {
+                console.error("Tinkoff SDK not found on window object", Object.keys(window));
+                alert("Ошибка инициализации виджета Т-Банка. Отключите блокировщики рекламы.");
+            }
+        } catch (e) {
+            console.error("Tinkoff initialization error:", e);
+            alert("Ошибка при вызове окна оплаты.");
         }
     };
 
