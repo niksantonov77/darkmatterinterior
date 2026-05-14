@@ -24,11 +24,12 @@ export default function FloatingCTA() {
     <>
       {/* Floating button */}
       <button
+        className="hb-cta-btn"
         onClick={() => setOpen(true)}
         style={{
           position: 'fixed',
-          bottom: 32,
-          right: 32,
+          bottom: 28,
+          right: 24,
           zIndex: 40,
           display: 'flex',
           alignItems: 'center',
@@ -45,17 +46,17 @@ export default function FloatingCTA() {
           boxShadow: '0 8px 40px rgba(0,0,0,0.45)',
           opacity: visible ? 1 : 0,
           transform: visible ? 'translateY(0)' : 'translateY(16px)',
-          transition: 'opacity 400ms, transform 400ms, background 200ms',
+          transition: 'opacity 400ms, transform 400ms, background 200ms, padding 200ms, border-radius 200ms',
           pointerEvents: visible ? 'auto' : 'none',
           whiteSpace: 'nowrap',
         }}
         onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'var(--hb-accent-hot)'; }}
         onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'var(--hb-ink)'; }}
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
         </svg>
-        Оставить заявку
+        <span className="hb-cta-label">Оставить заявку</span>
       </button>
 
       {/* Modal backdrop */}
@@ -71,7 +72,7 @@ export default function FloatingCTA() {
             overflowY: 'auto',
           }}
         >
-          <div style={{
+          <div className="hb-modal-panel" style={{
             background: 'var(--hb-bg)',
             width: '100%',
             maxWidth: 760,

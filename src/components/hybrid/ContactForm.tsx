@@ -104,7 +104,7 @@ export default function ContactForm({ onSuccess, successInModal }: Props) {
 
   return (
     <form onSubmit={handleSubmit} style={{ padding: '32px 40px 40px' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '28px 40px' }}>
+      <div className="hb-form-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '28px 40px' }}>
         <div style={fieldWrap}>
           <label style={labelStyle}>Ваше имя *</label>
           <input name="name" value={form.name} onChange={handleChange} required placeholder="Иван Иванов" style={inputStyle}

@@ -65,11 +65,11 @@ export default function HybridWork() {
               display: 'grid',
               gridTemplateColumns: '70px 2fr 1fr 1fr 100px 60px',
               alignItems: 'center', gap: 32,
-              padding: '44px 16px',
+              padding: '36px 16px',
               borderBottom: '1px solid var(--hb-rule-strong)',
               cursor: 'pointer',
             }}>
-            <span style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, color: 'var(--hb-ink-faint)' }}>{p.n}</span>
+            <span className="hb-work-col-num" style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, color: 'var(--hb-ink-faint)' }}>{p.n}</span>
             <h3 style={{
               fontFamily: 'var(--hb-serif)', fontWeight: 300,
               fontSize: 38, letterSpacing: '-0.02em', margin: 0, color: 'var(--hb-ink)',

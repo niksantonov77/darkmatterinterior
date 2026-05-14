@@ -211,6 +211,20 @@
   /* Hero - hide last project card on small screens */
   .hb-hero-card { display: none !important; }
 
+  /* Work table: hide number col, keep title + arrow */
+  .hb-work-col-num  { display: none !important; }
+  .hb-grid-work-table { grid-template-columns: 1fr 40px !important; }
+
+  /* Contact form: single column inside modal on mobile */
+  .hb-form-grid { grid-template-columns: 1fr !important; }
+
+  /* Floating CTA: icon-only on mobile */
+  .hb-cta-label { display: none !important; }
+  .hb-cta-btn   { padding: 16px !important; border-radius: 50% !important; }
+
+  /* Modal: full screen on mobile */
+  .hb-modal-panel { max-height: 100vh !important; border: none !important; }
+
   /* Mobile nav overlay */
   .hb-nav-overlay {
     position: fixed; inset: 0; z-index: 49;
