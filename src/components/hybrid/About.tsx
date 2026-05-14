@@ -57,8 +57,8 @@ export default function HybridAbout() {
   return (
     <section id="about" style={{ borderTop: '1px solid var(--hb-rule)' }}>
       {/* Block A: Founders */}
-      <div style={{ padding: 'var(--hb-pad-y) 32px', background: 'var(--hb-bg-2)' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 64, marginBottom: 56 }}>
+      <div className="hb-section-px" style={{ padding: 'var(--hb-pad-y) 32px', background: 'var(--hb-bg-2)' }}>
+        <div className="hb-grid-section-header" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 64, marginBottom: 56 }}>
           <div style={{ fontFamily: 'var(--hb-sans)', fontSize: 12, color: 'var(--hb-ink-faint)' }}>
             06 — О студии
           </div>
@@ -71,7 +71,7 @@ export default function HybridAbout() {
             }} />
         </div>
 
-        <div ref={ref} className="hb-reveal" style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: 1, background: 'var(--hb-rule)' }}>
+        <div ref={ref} className="hb-reveal hb-grid-founders" style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: 1, background: 'var(--hb-rule)' }}>
           {/* Nikita */}
           <div style={{ background: 'var(--hb-bg)', padding: 48 }}>
             <div style={{ fontFamily: 'var(--hb-sans)', fontSize: 11, color: 'var(--hb-ink-faint)', marginBottom: 32, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
@@ -81,7 +81,7 @@ export default function HybridAbout() {
               Никита Антонов
             </h3>
             <p style={{ fontFamily: 'var(--hb-sans)', fontSize: 14, lineHeight: 1.7, color: 'var(--hb-ink-dim)', maxWidth: 520, margin: 0 }}>
-              Прошёл путь от монтажника до управляющего партнёра. Окончил СПбГАСУ. Знает каждый узел изнутри — лично контролирует каждый объект студии. Убеждён, что репутацию строят скрытые работы, а не фасад.
+              Прошёл путь от монтажника до управляющего партнёра. Окончил СПбГАСУ по специальности «Промышленное и гражданское строительство». Знает каждый узел изнутри — лично контролирует каждый объект студии. Убеждён, что репутацию строят скрытые работы, а не фасад.
             </p>
           </div>
 
@@ -94,7 +94,7 @@ export default function HybridAbout() {
               Анастасия Антонова
             </h3>
             <p style={{ fontFamily: 'var(--hb-sans)', fontSize: 14, lineHeight: 1.7, color: 'var(--hb-ink-dim)', margin: 0 }}>
-              Главный дизайнер студии. Окончила Университет промышленных технологий и дизайна. Специализируется на жилых интерьерах класса бизнес и премиум. Её проекты — это точный баланс между эстетикой и практичностью жизни.
+              Главный дизайнер студии. Окончила Санкт-Петербургский государственный университет промышленных технологий и дизайна. Специализируется на жилых интерьерах класса бизнес и премиум. Её проекты — это точный баланс между эстетикой и практичностью жизни.
             </p>
           </div>
         </div>
@@ -102,13 +102,13 @@ export default function HybridAbout() {
 
       {/* Block B: Stats */}
       <div ref={statsRef} className="hb-reveal" style={{ borderTop: '1px solid var(--hb-rule-strong)', borderBottom: '1px solid var(--hb-rule-strong)' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+        <div className="hb-grid-about-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
           {statItems.map((s, i) => (
             <div key={i} style={{
               padding: '48px 32px',
               borderRight: i < 3 ? '1px solid var(--hb-rule)' : 'none',
             }}>
-              <div style={{ fontFamily: 'var(--hb-serif)', fontSize: 80, fontWeight: 300, letterSpacing: '-0.04em', lineHeight: 0.95, marginBottom: 12, color: 'var(--hb-ink)' }}>
+              <div className="hb-about-stat-num" style={{ fontFamily: 'var(--hb-serif)', fontSize: 80, fontWeight: 300, letterSpacing: '-0.04em', lineHeight: 0.95, marginBottom: 12, color: 'var(--hb-ink)' }}>
                 <AnimatedNumber to={s.n} suffix={s.suf} format="int" duration={2000} />
               </div>
               <div style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, color: 'var(--hb-ink-dim)' }}>{s.lbl}</div>

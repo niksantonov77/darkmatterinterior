@@ -151,6 +151,76 @@
   }
 }
 
+/* ── Mobile breakpoint ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  :root, .hb-dark {
+    --hb-h1: 42px;
+    --hb-h2: 32px;
+    --hb-pad-y: 64px;
+  }
+
+  /* Grid collapse helpers */
+  .hb-grid-section-header { grid-template-columns: 1fr !important; gap: 20px !important; }
+  .hb-grid-hero            { grid-template-columns: 1fr !important; }
+  .hb-grid-stats           { grid-template-columns: repeat(2, 1fr) !important; }
+  .hb-grid-work-table      { grid-template-columns: 1fr 2fr 40px !important; gap: 8px !important; }
+  .hb-grid-method          { grid-template-columns: 1fr !important; }
+  .hb-grid-founders        { grid-template-columns: 1fr !important; }
+  .hb-grid-about-stats     { grid-template-columns: repeat(2, 1fr) !important; }
+  .hb-grid-contact         { grid-template-columns: 1fr !important; }
+  .hb-grid-footer          { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
+  .hb-grid-footer-legal    { grid-template-columns: 1fr !important; gap: 12px !important; }
+
+  /* Section padding */
+  .hb-section-px { padding-left: 16px !important; padding-right: 16px !important; }
+
+  /* Utility */
+  .hb-hide-mobile { display: none !important; }
+  .hb-show-mobile { display: flex !important; }
+
+  /* Pricing horizontal scroll */
+  .hb-pricing-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Disable custom cursor on touch */
+  .hb-cursor { display: none !important; }
+
+  /* Work floating preview - hide on touch */
+  .hb-work-preview { display: none !important; }
+
+  /* Nav mobile overrides */
+  .hb-nav-links  { display: none !important; }
+  .hb-nav-phone  { display: none !important; }
+  .hb-nav-cta    { display: none !important; }
+  .hb-nav-burger { display: flex !important; }
+
+  /* Spec row - disable padding animation on mobile */
+  .hb-spec-row:hover { padding-left: 0 !important; }
+
+  /* Large number overrides */
+  .hb-method-num   { font-size: 64px !important; }
+  .hb-stat-num     { font-size: 56px !important; }
+  .hb-quote-text   { font-size: 28px !important; line-height: 1.3 !important; }
+  .hb-contact-phone { font-size: 32px !important; }
+  .hb-about-stat-num { font-size: 52px !important; }
+
+  /* Work - hide secondary columns on mobile */
+  .hb-work-col-loc  { display: none !important; }
+  .hb-work-col-area { display: none !important; }
+  .hb-work-col-year { display: none !important; }
+
+  /* Hero - hide last project card on small screens */
+  .hb-hero-card { display: none !important; }
+
+  /* Mobile nav overlay */
+  .hb-nav-overlay {
+    position: fixed; inset: 0; z-index: 49;
+    background: var(--hb-bg);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 32px;
+  }
+}
+
 /* Minimalistic scrollbar */
 ::-webkit-scrollbar {
   width: 4px;

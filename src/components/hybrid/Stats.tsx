@@ -17,7 +17,7 @@ export default function HybridStats() {
       borderBottom: '1px solid var(--hb-rule-strong)',
       background: 'var(--hb-bg-2)',
     }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+      <div className="hb-grid-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
         {stats.map((s, i) => (
           <div key={i} style={{
             padding: '56px 32px',
@@ -30,7 +30,7 @@ export default function HybridStats() {
             }}>
               {String(i + 1).padStart(2, '0')} / 04
             </div>
-            <div style={{
+            <div className="hb-stat-num" style={{
               fontFamily: 'var(--hb-serif)', fontSize: 92, fontWeight: 300,
               letterSpacing: '-0.04em', lineHeight: 0.95, marginBottom: 14,
               color: 'var(--hb-ink)',

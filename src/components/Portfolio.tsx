@@ -1,165 +1,157 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-
-// Pre-define the known images from the public folder based on earlier lists
-const generatePaths = () => {
-    const kudrovo = Array.from({ length: 6 }, (_, i) => `/portfolio/kudrovo/${i + 1}.jpg`);
-    const jaanila = Array.from({ length: 12 }, (_, i) => `/portfolio/jaanila/${i + 1}.jpg`);
-    const svetlana = Array.from({ length: 6 }, (_, i) => `/portfolio/svetlana/${i + 1}.jpg`);
-    const forest = Array.from({ length: 3 }, (_, i) => `/portfolio/forest/${i + 1}.jpg`);
-    const lotos = Array.from({ length: 5 }, (_, i) => `/portfolio/lotos/${i + 1}.jpg`);
-
-    // Combine and shuffle for a truly "chaotic" aesthetic
-    const all = [...kudrovo, ...svetlana, ...forest, ...lotos, ...jaanila];
-
-    // A stable but pseudo-random shuffle so it looks the same on every load
-    let currentIndex = all.length, randomIndex;
-    let seed = 42;
-    function random() {
-        var x = Math.sin(seed++) * 10000;
-        return x - Math.floor(x);
-    }
-    while (currentIndex != 0) {
-        randomIndex = Math.floor(random() * currentIndex);
-        currentIndex--;
-        [all[currentIndex], all[randomIndex]] = [all[randomIndex], all[currentIndex]];
-    }
-    return all;
-};
-
-const chaoticImages = generatePaths();
+import { Link } from 'react-router-dom';
+import { portfolioData, ProjectCategory } from '../data/portfolio';
 
 export default function Portfolio() {
-    const [selectedImageIdx, setSelectedImageIdx] = useState<number | null>(null);
+    const [activeFilter, setActiveFilter] = useState<ProjectCategory | 'Все'>('Все');
 
-    // Lock body scroll when modal is open
-    useEffect(() => {
-        if (selectedImageIdx !== null) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-        return () => { document.body.style.overflow = 'unset'; };
-    }, [selectedImageIdx]);
+    const categories: (ProjectCategory | 'Все')[] = ['Все', 'Для семей', 'Для предпринимателей', 'Для инвесторов', 'Для молодых пар', 'Премиум'];
 
-    const closeModal = () => setSelectedImageIdx(null);
+    const anchoredProject = portfolioData[0]; // The 207m2 premium project
+    const gridProjects = portfolioData.slice(1); // The rest
 
-    const nextImage = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        if (selectedImageIdx !== null) setSelectedImageIdx((prev) => (prev! + 1) % chaoticImages.length);
-    };
-
-    const prevImage = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        if (selectedImageIdx !== null) setSelectedImageIdx((prev) => (prev! - 1 + chaoticImages.length) % chaoticImages.length);
-    };
+    const filteredProjects = activeFilter === 'Все'
+        ? gridProjects
+        : gridProjects.filter(p => p.category === activeFilter);
 
     return (
-        <>
-            <section id="portfolio" className="py-24 md:py-40 bg-ink-900 border-t border-white/5 relative">
-                <div className="container mx-auto px-6 md:px-12">
+        <section id="portfolio" className="py-24 md:py-40 bg-ink-900 border-t border-white/5">
+            <div className="container mx-auto px-6 md:px-12">
 
-                    <div className="mb-16 md:mb-24">
+                <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
+                    <div>
                         <h2 className="text-sm uppercase tracking-widest text-white/40 mb-8 flex items-center gap-4">
                             <span className="w-8 h-[1px] bg-white/20"></span>
                             Портфолио
                         </h2>
                         <h3 className="text-3xl md:text-5xl font-medium tracking-tight text-white leading-[1.1] lowercase max-w-2xl">
-                            Галерея избранных объектов.
+                            Реализованные проекты.
                         </h3>
                     </div>
+                </div>
 
-                    {/* Chaotic Masonry Grid */}
-                    <div className="columns-2 md:columns-3 lg:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6">
-                        {chaoticImages.map((src, idx) => (
-                            <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true, margin: "10%" }}
-                                transition={{ duration: 0.8 }}
-                                className="break-inside-avoid relative group cursor-pointer overflow-hidden"
-                                onClick={() => setSelectedImageIdx(idx)}
-                            >
+                {/* Anchored Premium Project */}
+                <div className="mb-24">
+                    <Link to={`/portfolio/${anchoredProject.slug}`} className="group block relative overflow-hidden bg-ink-800/50 border border-white/5 rounded-sm">
+                        <div className="flex flex-col lg:flex-row">
+                            <div className="lg:w-2/3 relative aspect-video lg:aspect-auto">
                                 <img
-                                    src={src}
-                                    alt={`Project abstract ${idx}`}
-                                    className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 hover:scale-105"
-                                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                                    src={`/${anchoredProject.mainImage.replace('./', '')}`}
+                                    alt={anchoredProject.title}
+                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                                 />
-                                <div className="absolute inset-0 bg-ink-900/20 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
+                                <div className="absolute inset-0 bg-ink-900/20 group-hover:bg-transparent transition-colors duration-500" />
+                                <div className="absolute top-6 left-6 z-10">
+                                    <span className="bg-ink-900/80 backdrop-blur-md text-white text-[10px] uppercase tracking-widest px-4 py-2 border border-white/20 font-sans">
+                                        В работе • Якорный проект
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="lg:w-1/3 p-8 lg:p-12 flex flex-col justify-center bg-ink-900 z-10 relative">
+                                <h4 className="text-2xl lg:text-3xl font-serif text-white mb-4 group-hover:text-cream-500 transition-colors">
+                                    {anchoredProject.title}
+                                </h4>
+                                <p className="text-white/60 font-light mb-8 font-serif leading-relaxed line-clamp-4">
+                                    {anchoredProject.shortDescription}. {anchoredProject.who}
+                                </p>
+                                <div className="mt-auto">
+                                    <span className="inline-flex items-center text-xs uppercase tracking-widest text-white/50 group-hover:text-white transition-colors">
+                                        Смотреть проект
+                                        <svg className="w-4 h-4 ml-2 rtl:rotate-180 transform transition-transform group-hover:translate-x-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+                </div>
+
+                {/* For Whom We Work */}
+                <div className="mb-12 border-t border-white/5 pt-12">
+                    <h4 className="text-white/40 text-xs tracking-widest uppercase mb-8">Для кого мы работаем</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div>
+                            <p className="text-white font-serif mb-2 text-lg">Для семей</p>
+                            <p className="text-white/50 text-sm font-light leading-relaxed">Пространства, где комфортно всем: от кабинета для работы до детской для творчества.</p>
+                        </div>
+                        <div>
+                            <p className="text-white font-serif mb-2 text-lg">Для предпринимателей</p>
+                            <p className="text-white/50 text-sm font-light leading-relaxed">Интерьеры, которые работают как продолжение личного бренда.</p>
+                        </div>
+                        <div>
+                            <p className="text-white font-serif mb-2 text-lg">Для молодых пар</p>
+                            <p className="text-white/50 text-sm font-light leading-relaxed">Первое жильё, где каждая деталь продумана.</p>
+                        </div>
+                        <div>
+                            <p className="text-white font-serif mb-2 text-lg">Для инвесторов</p>
+                            <p className="text-white/50 text-sm font-light leading-relaxed">Квартиры, которые сдаются в первый день.</p>
+                        </div>
+                        <div className="md:col-span-2 lg:col-span-1">
+                            <p className="text-white font-serif mb-2 text-lg">Премиум-проекты</p>
+                            <p className="text-white/50 text-sm font-light leading-relaxed">Пространства без компромиссов.</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Filters */}
+                <div className="flex flex-wrap gap-3 mb-12 border-t border-white/5 pt-8">
+                    {categories.map(cat => (
+                        <button
+                            key={cat}
+                            onClick={() => setActiveFilter(cat)}
+                            className={`px-5 py-2 text-xs uppercase tracking-widest rounded-full border transition-all duration-300 font-sans ${activeFilter === cat
+                                ? 'bg-white text-ink-900 border-white'
+                                : 'bg-transparent text-white/50 border-white/10 hover:border-white/40 hover:text-white'
+                                }`}
+                        >
+                            {cat}
+                        </button>
+                    ))}
+                </div>
+
+                {/* Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-12">
+                    <AnimatePresence mode="popLayout">
+                        {filteredProjects.map((project, idx) => (
+                            <motion.div
+                                key={project.id}
+                                layout
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                transition={{ duration: 0.5, delay: idx * 0.05 }}
+                            >
+                                <Link to={`/portfolio/${project.slug}`} className="group block">
+                                    <div className="relative aspect-[4/3] overflow-hidden mb-6 bg-ink-800">
+                                        <img
+                                            src={`/${project.mainImage.replace('./', '')}`}
+                                            alt={project.title}
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-ink-900/30 group-hover:bg-transparent transition-colors duration-500" />
+                                    </div>
+                                    <div className="flex items-start justify-between gap-4">
+                                        <div>
+                                            <h4 className="text-xl font-serif text-white mb-2 group-hover:text-cream-500 transition-colors">
+                                                {project.title}
+                                            </h4>
+                                            <p className="text-white/50 text-sm font-light leading-relaxed mb-4">
+                                                {project.shortDescription}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <span className="text-xs uppercase tracking-widest text-white/30 group-hover:text-white/70 transition-colors border-b border-transparent group-hover:border-white/30 pb-1">
+                                        Подробнее
+                                    </span>
+                                </Link>
                             </motion.div>
                         ))}
-                    </div>
-
+                    </AnimatePresence>
                 </div>
-            </section>
 
-            {/* Lightbox Modal */}
-            <AnimatePresence>
-                {selectedImageIdx !== null && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="fixed inset-0 z-[100] bg-ink-900/98 backdrop-blur-xl flex flex-col overflow-hidden"
-                    >
-                        {/* Top Bar with Close Button */}
-                        <div className="absolute top-0 right-0 w-full flex justify-end p-4 md:p-8 z-[120] pointer-events-none">
-                            <button onClick={closeModal} className="text-white/80 hover:text-white transition-colors p-3 bg-ink-900/80 backdrop-blur-md rounded-full pointer-events-auto border border-white/10">
-                                <X size={28} strokeWidth={1.5} />
-                            </button>
-                        </div>
-
-                        <div className="flex-1 relative flex items-center justify-center w-full h-full" onClick={closeModal}>
-                            {/* Navigation Zones for Desktop */}
-                            <div className="hidden md:block absolute left-0 top-0 bottom-0 w-1/4 cursor-w-resize z-[105]" onClick={prevImage}></div>
-                            <div className="hidden md:block absolute right-0 top-0 bottom-0 w-1/4 cursor-e-resize z-[105]" onClick={nextImage}></div>
-
-                            {/* Mobile Navigation controls */}
-                            <div className="md:hidden absolute bottom-20 flex items-center justify-center gap-8 z-[110] pointer-events-none w-full">
-                                <button onClick={prevImage} className="pointer-events-auto text-white flex items-center justify-center w-14 h-14 rounded-full bg-ink-900/80 backdrop-blur-md border border-white/10">
-                                    <ChevronLeft size={28} />
-                                </button>
-                                <button onClick={nextImage} className="pointer-events-auto text-white flex items-center justify-center w-14 h-14 rounded-full bg-ink-900/80 backdrop-blur-md border border-white/10">
-                                    <ChevronRight size={28} />
-                                </button>
-                            </div>
-
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={selectedImageIdx}
-                                    initial={{ opacity: 0, scale: 0.98 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 1.02 }}
-                                    transition={{ duration: 0.3, ease: "easeOut" }}
-                                    className="w-full h-full flex items-center justify-center p-2 md:p-16 z-[100]"
-                                    onClick={(e) => e.stopPropagation()}
-                                >
-                                    <motion.img
-                                        src={chaoticImages[selectedImageIdx]}
-                                        alt={`Gallery Image ${selectedImageIdx}`}
-                                        className="max-w-full max-h-[85vh] md:max-h-full object-contain shadow-2xl pointer-events-none"
-                                    />
-                                </motion.div>
-                            </AnimatePresence>
-
-                            <button className="hidden md:block absolute left-8 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors pointer-events-none z-[110]">
-                                <ChevronLeft size={48} strokeWidth={1} />
-                            </button>
-                            <button className="hidden md:block absolute right-8 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors pointer-events-none z-[110]">
-                                <ChevronRight size={48} strokeWidth={1} />
-                            </button>
-                        </div>
-
-                        <div className="absolute bottom-6 left-0 w-full text-center text-white/50 text-xs uppercase tracking-widest font-sans pointer-events-none z-[110]">
-                            {selectedImageIdx + 1} / {chaoticImages.length}
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </>
+            </div>
+        </section>
     );
 }

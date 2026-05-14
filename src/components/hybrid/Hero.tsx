@@ -46,7 +46,7 @@ export default function HybridHero() {
         backgroundSize: '120px 120px', opacity: 0.4,
       }} />
 
-      <div style={{ position: 'relative', zIndex: 2, padding: '0 32px', maxWidth: 1600, margin: '0 auto' }}>
+      <div className="hb-section-px" style={{ position: 'relative', zIndex: 2, padding: '0 32px', maxWidth: 1600, margin: '0 auto' }}>
         <div ref={refs[0]} className="hb-reveal" style={{
           display: 'flex', alignItems: 'center', gap: 16,
           marginBottom: 56, marginTop: 96,
@@ -67,7 +67,7 @@ export default function HybridHero() {
           <em style={{ fontStyle: 'italic', fontWeight: 400 }}>под ключ.</em>
         </h1>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 64, alignItems: 'end' }}>
+        <div className="hb-grid-hero" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 64, alignItems: 'end' }}>
           <div ref={refs[2]} className="hb-reveal">
             <p style={{
               fontFamily: 'var(--hb-sans)', fontSize: 18, lineHeight: 1.6,
@@ -117,7 +117,7 @@ export default function HybridHero() {
             </div>
           </div>
 
-          <div ref={refs[3]} className="hb-reveal" style={{
+          <div ref={refs[3]} className="hb-reveal hb-hero-card" style={{
             border: '1px solid var(--hb-rule)',
             padding: 28, fontFamily: 'var(--hb-sans)', fontSize: 13,
             background: 'color-mix(in srgb, var(--hb-bg) 60%, transparent)',

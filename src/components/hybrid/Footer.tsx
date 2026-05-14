@@ -5,7 +5,7 @@ export default function HybridFooter() {
   return (
     <footer style={{ borderTop: '1px solid var(--hb-rule-strong)', background: 'var(--hb-bg-2)' }}>
       {/* Main footer grid */}
-      <div style={{ padding: '64px 32px', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 48 }}>
+      <div className="hb-section-px hb-grid-footer" style={{ padding: '64px 32px', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 48 }}>
         {/* Brand column */}
         <div>
           <img src="/assets/logo-black-wide.png" alt="Dark Matter" style={{ height: 28, marginBottom: 24, filter: 'var(--hb-logo-filter, invert(1))' }} />
@@ -65,10 +65,25 @@ export default function HybridFooter() {
           <div style={{ fontFamily: 'var(--hb-sans)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--hb-ink-faint)', marginBottom: 20 }}>
             Оплата
           </div>
-          <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 16, color: 'var(--hb-ink-faint)' }}>
-            <div style={{ height: 16, width: 48 }}><MirIcon /></div>
-            <div style={{ height: 16, width: 48 }}><VisaIcon /></div>
-            <div style={{ height: 20, width: 36 }}><MastercardIcon /></div>
+          <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 16 }}>
+            <a href="https://mironline.ru" target="_blank" rel="noopener noreferrer" aria-label="МИР"
+              style={{ height: 16, width: 48, color: 'var(--hb-ink-faint)', display: 'block', transition: 'color 200ms' }}
+              onMouseEnter={e => (e.currentTarget.style.color = 'var(--hb-ink)')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'var(--hb-ink-faint)')}>
+              <MirIcon />
+            </a>
+            <a href="https://visa.com" target="_blank" rel="noopener noreferrer" aria-label="Visa"
+              style={{ height: 16, width: 48, color: 'var(--hb-ink-faint)', display: 'block', transition: 'color 200ms' }}
+              onMouseEnter={e => (e.currentTarget.style.color = 'var(--hb-ink)')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'var(--hb-ink-faint)')}>
+              <VisaIcon />
+            </a>
+            <a href="https://mastercard.com" target="_blank" rel="noopener noreferrer" aria-label="Mastercard"
+              style={{ height: 20, width: 36, color: 'var(--hb-ink-faint)', display: 'block', transition: 'color 200ms' }}
+              onMouseEnter={e => (e.currentTarget.style.color = 'var(--hb-ink)')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'var(--hb-ink-faint)')}>
+              <MastercardIcon />
+            </a>
           </div>
           <p style={{ fontFamily: 'var(--hb-sans)', fontSize: 12, color: 'var(--hb-ink-faint)', lineHeight: 1.5, margin: 0 }}>
             Безопасная оплата через Т-Банк эквайринг
@@ -77,8 +92,8 @@ export default function HybridFooter() {
       </div>
 
       {/* Legal bottom bar */}
-      <div style={{ borderTop: '1px solid var(--hb-rule)', padding: '32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 32 }}>
+      <div className="hb-section-px" style={{ borderTop: '1px solid var(--hb-rule)', padding: '32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div className="hb-grid-footer-legal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 32 }}>
           <div style={{ fontFamily: 'var(--hb-sans)', fontSize: 12, color: 'var(--hb-ink-faint)', lineHeight: 1.6 }}>
             <div>ИП Антонов Никита Сергеевич</div>
             <div>ИНН: 780634510121</div>

@@ -15,8 +15,8 @@ export default function HybridWork() {
   const [hover, setHover] = useState<number | null>(null);
 
   return (
-    <section id="work" style={{ padding: 'var(--hb-pad-y) 32px', position: 'relative' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 64, marginBottom: 72, alignItems: 'end' }}>
+    <section id="work" className="hb-section-px" style={{ padding: 'var(--hb-pad-y) 32px', position: 'relative' }}>
+      <div className="hb-grid-section-header" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 64, marginBottom: 72, alignItems: 'end' }}>
         <div>
           <div style={{ fontFamily: 'var(--hb-sans)', fontSize: 12, color: 'var(--hb-ink-faint)', marginBottom: 24 }}>
             02 — Объекты
@@ -36,7 +36,7 @@ export default function HybridWork() {
       </div>
 
       {/* Floating preview pane */}
-      <div style={{
+      <div className="hb-work-preview" style={{
         position: 'fixed', top: '50%', right: 32,
         transform: 'translateY(-50%)', zIndex: 5,
         width: 320, aspectRatio: '3/4', pointerEvents: 'none',
@@ -58,7 +58,7 @@ export default function HybridWork() {
       <div ref={ref} className="hb-reveal" style={{ borderTop: '1px solid var(--hb-rule-strong)' }}>
         {projects.map((p, i) => (
           <div key={p.n}
-            className="hb-spec-row"
+            className="hb-spec-row hb-grid-work-table"
             onMouseEnter={() => setHover(i)}
             onMouseLeave={() => setHover(null)}
             style={{
@@ -74,9 +74,9 @@ export default function HybridWork() {
               fontFamily: 'var(--hb-serif)', fontWeight: 300,
               fontSize: 38, letterSpacing: '-0.02em', margin: 0, color: 'var(--hb-ink)',
             }}>{p.t}</h3>
-            <span style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, color: 'var(--hb-ink-dim)' }}>{p.loc}</span>
-            <span style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, color: 'var(--hb-ink-dim)' }}>{p.area}</span>
-            <span style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, color: 'var(--hb-ink-dim)' }}>{p.year}</span>
+            <span className="hb-work-col-loc" style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, color: 'var(--hb-ink-dim)' }}>{p.loc}</span>
+            <span className="hb-work-col-area" style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, color: 'var(--hb-ink-dim)' }}>{p.area}</span>
+            <span className="hb-work-col-year" style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, color: 'var(--hb-ink-dim)' }}>{p.year}</span>
             <span style={{
               fontFamily: 'var(--hb-sans)', fontSize: 16, color: 'var(--hb-ink)',
               textAlign: 'right',

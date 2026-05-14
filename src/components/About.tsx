@@ -26,11 +26,23 @@ export default function About() {
 
                             <div className="flex flex-col gap-6 text-white/60 text-sm md:text-base leading-relaxed max-w-xl">
                                 <p>
-                                    Dark Matter — это семейное бюро, основанное парой экспертов с высшим профильным образованием. За 7 лет практики мы сформировали собственный стандарт реализации, превратив более 80 объектов в завершенные жилые резиденции.
+                                    Dark Matter — это семейное бюро, основанное парой экспертов с высшим профильным образованием. За 7 лет практики мы сформировали собственный стандарт реализации, превратив более 80 объектов в завершенные жилые пространства.
                                 </p>
                                 <p>
                                     Мы убеждены: премиальный интерьер начинается с точного инженерного расчета. В Dark Matter архитектурная мысль не спорит с техническими узлами, а строится на их основе. Мы создаем пространство, которое не требует вашего присутствия на стройке, но полностью отражает ваш статус.
                                 </p>
+                                <div className="mt-8 border-l border-white/20 pl-6 py-2">
+                                    <h4 className="text-white text-lg font-serif mb-4">Наш подход</h4>
+                                    <p className="mb-4">
+                                        Мы не делим проекты на «дорогие» и «бюджетные». Для нас каждый проект — это задача, в которой нужно найти лучшее решение в заданных рамках.
+                                    </p>
+                                    <p className="mb-4">
+                                        Раковина из натурального речного камня в одном проекте стоила меньше стандарта — но стала визитной карточкой. Зелёная стена с подсветкой в другом — простая покраска, создающая wow-эффект. Именно это мы приносим: умение видеть возможности там, где другие видят только бюджет.
+                                    </p>
+                                    <p>
+                                        Раньше мы искали материалы, имитирующие премиум. Теперь мы ставим настоящий травертин и никелевую сантехнику. Но глаз, тренированный правильными пропорциями и светом на 80+ реализованных проектах, остается тем же.
+                                    </p>
+                                </div>
                             </div>
                         </motion.div>
 
@@ -39,15 +51,23 @@ export default function About() {
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true, margin: "-10%" }}
                             transition={{ duration: 0.8, delay: 0.2 }}
-                            className="grid grid-cols-2 gap-8 mt-16 pt-12 border-t border-white/10 max-w-xl"
+                            className="grid grid-cols-2 gap-x-8 gap-y-12 mt-16 pt-12 border-t border-white/10 max-w-xl"
                         >
                             <div>
-                                <p className="text-4xl md:text-5xl font-medium tracking-tight text-white mb-2">7</p>
-                                <p className="text-[10px] md:text-xs uppercase tracking-widest text-white/40">лет практики</p>
+                                <p className="text-3xl md:text-4xl font-light tracking-tight text-white mb-2 font-serif">80+</p>
+                                <p className="text-[10px] md:text-xs uppercase tracking-widest text-white/40 leading-relaxed">реализованных пространств в ЖК Петербурга</p>
                             </div>
                             <div>
-                                <p className="text-4xl md:text-5xl font-medium tracking-tight text-white mb-2">80+</p>
-                                <p className="text-[10px] md:text-xs uppercase tracking-widest text-white/40">резиденций</p>
+                                <p className="text-3xl md:text-4xl font-light tracking-tight text-white mb-2 font-serif">6–18</p>
+                                <p className="text-[10px] md:text-xs uppercase tracking-widest text-white/40 leading-relaxed">месяцев — от старта до въезда</p>
+                            </div>
+                            <div>
+                                <p className="text-3xl md:text-4xl font-light tracking-tight text-white mb-2 font-serif">100%</p>
+                                <p className="text-[10px] md:text-xs uppercase tracking-widest text-white/40 leading-relaxed">точность реализации по проекту</p>
+                            </div>
+                            <div>
+                                <p className="text-3xl md:text-4xl font-light tracking-tight text-white mb-2 font-serif">0</p>
+                                <p className="text-[10px] md:text-xs uppercase tracking-widest text-white/40 leading-relaxed">скрытых платежей — полная отчётность</p>
                             </div>
                         </motion.div>
                     </div>

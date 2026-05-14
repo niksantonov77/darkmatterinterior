@@ -28,7 +28,7 @@ function MethodCard({ idx, n, t, d }: { idx: number; n: string; t: string; d: st
       <div style={{ position: 'absolute', top: 28, right: 28, fontSize: 11, color: 'var(--hb-ink-faint)', fontFamily: 'var(--hb-sans)' }}>
         Этап {n}
       </div>
-      <div style={{
+      <div className="hb-method-num" style={{
         fontFamily: 'var(--hb-serif)', fontWeight: 300,
         fontSize: 96, color: hover ? 'var(--hb-ink)' : 'var(--hb-rule-strong)',
         lineHeight: 0.85, marginBottom: 20, letterSpacing: '-0.04em',
@@ -45,12 +45,12 @@ function MethodCard({ idx, n, t, d }: { idx: number; n: string; t: string; d: st
 
 export default function HybridMethod() {
   return (
-    <section id="method" style={{
+    <section id="method" className="hb-section-px" style={{
       padding: 'var(--hb-pad-y) 32px',
       borderTop: '1px solid var(--hb-rule)',
       background: 'var(--hb-bg-2)',
     }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 64, marginBottom: 56 }}>
+      <div className="hb-grid-section-header" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 64, marginBottom: 56 }}>
         <div style={{ fontFamily: 'var(--hb-sans)', fontSize: 12, color: 'var(--hb-ink-faint)' }}>
           03 — Как мы работаем
         </div>
@@ -62,7 +62,7 @@ export default function HybridMethod() {
             letterSpacing: '-0.025em', margin: 0, color: 'var(--hb-ink)',
           }} />
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, background: 'var(--hb-rule)' }}>
+      <div className="hb-grid-method" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, background: 'var(--hb-rule)' }}>
         {items.map((p, i) => <MethodCard key={p.n} idx={i} {...p} />)}
       </div>
     </section>

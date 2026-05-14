@@ -21,6 +21,7 @@ export default function HybridQuote() {
           as="blockquote"
           staggerMs={70}
           text="Качество ремонта решается там, где его никто не увидит — в узлах инженерных коммуникаций, штробах и стяжке. Туда мы и кладём бюджет в первую очередь."
+          className="hb-quote-text"
           style={{
             fontFamily: 'var(--hb-serif)', fontWeight: 300,
             fontSize: 56, lineHeight: 1.2, letterSpacing: '-0.02em',

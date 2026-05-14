@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://securepay.tinkoff.ru/html/payForm/js/tinkoff_v2.js"></script>
+    <script>
+        window.onload = function() {
+            var keys = Object.keys(window).filter(k => (k.toLowerCase().includes('pay') || k.toLowerCase().includes('tinkoff')));
+            document.body.innerHTML = "<h1>" + keys.join(", ") + "</h1>";
+        };
+    </script>
+</head>
+<body></body>
+</html>

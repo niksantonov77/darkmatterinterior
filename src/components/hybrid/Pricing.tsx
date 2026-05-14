@@ -13,8 +13,8 @@ export default function HybridPricing() {
   const ref = useReveal();
 
   return (
-    <section id="pricing" style={{ padding: 'var(--hb-pad-y) 32px', borderTop: '1px solid var(--hb-rule)' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 64, marginBottom: 56 }}>
+    <section id="pricing" className="hb-section-px" style={{ padding: 'var(--hb-pad-y) 32px', borderTop: '1px solid var(--hb-rule)' }}>
+      <div className="hb-grid-section-header" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 64, marginBottom: 56 }}>
         <div style={{ fontFamily: 'var(--hb-sans)', fontSize: 12, color: 'var(--hb-ink-faint)' }}>
           04 — Стоимость
         </div>
@@ -27,11 +27,12 @@ export default function HybridPricing() {
           }} />
       </div>
 
-      <div ref={ref} className="hb-reveal" style={{ border: '1px solid var(--hb-rule-strong)' }}>
+      <div ref={ref} className="hb-reveal hb-pricing-scroll" style={{ border: '1px solid var(--hb-rule-strong)' }}>
         <div style={{
           display: 'grid', gridTemplateColumns: '60px 2fr 2fr 1fr 180px',
           background: 'var(--hb-bg-2)', padding: '16px 24px',
           fontSize: 12, color: 'var(--hb-ink-faint)', fontFamily: 'var(--hb-sans)',
+          minWidth: 600,
         }}>
           <span>№</span><span>Услуга</span><span>Что входит</span><span>Срок</span>
           <span style={{ textAlign: 'right' }}>Цена</span>
@@ -42,7 +43,7 @@ export default function HybridPricing() {
               display: 'grid', gridTemplateColumns: '60px 2fr 2fr 1fr 180px',
               padding: '26px 24px', alignItems: 'center',
               borderTop: '1px solid var(--hb-rule)',
-              cursor: 'pointer',
+              cursor: 'pointer', minWidth: 600,
             }}>
             <span style={{ fontFamily: 'var(--hb-sans)', color: 'var(--hb-ink-faint)', fontSize: 13 }}>{r.n}</span>
             <span style={{ fontFamily: 'var(--hb-serif)', fontSize: 22, color: 'var(--hb-ink)', letterSpacing: '-0.01em' }}>{r.s}</span>
