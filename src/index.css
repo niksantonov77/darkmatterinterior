@@ -2,6 +2,143 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Hybrid Design System Tokens ────────────────────────────────────── */
+:root {
+  --hb-bg: #0a0a0a;
+  --hb-bg-2: #131313;
+  --hb-bg-3: #1c1c1c;
+  --hb-ink: #f6f3ec;
+  --hb-ink-dim: rgba(246,243,236,0.65);
+  --hb-ink-faint: rgba(246,243,236,0.35);
+  --hb-rule: rgba(246,243,236,0.12);
+  --hb-rule-strong: rgba(246,243,236,0.25);
+  --hb-accent: #f6f3ec;
+  --hb-accent-hot: #ffffff;
+  --hb-serif: 'Playfair Display', 'Times New Roman', serif;
+  --hb-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --hb-sans: 'Manrope', system-ui, sans-serif;
+  --hb-h1: 156px;
+  --hb-h2: 72px;
+  --hb-pad-y: 160px;
+}
+
+.hb-light {
+  --hb-bg: #f6f3ec;
+  --hb-bg-2: #efeae0;
+  --hb-bg-3: #e6e0d3;
+  --hb-ink: #0e0e0e;
+  --hb-ink-dim: rgba(14,14,14,0.65);
+  --hb-ink-faint: rgba(14,14,14,0.4);
+  --hb-rule: rgba(14,14,14,0.12);
+  --hb-rule-strong: rgba(14,14,14,0.25);
+  --hb-accent: #0e0e0e;
+  --hb-accent-hot: #000000;
+}
+
+/* Reveal primitives */
+.hb-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1100ms cubic-bezier(0.2,0.7,0.2,1), transform 1100ms cubic-bezier(0.2,0.7,0.2,1);
+  will-change: opacity, transform;
+}
+.hb-reveal.hb-in { opacity: 1; transform: translateY(0); }
+
+.hb-reveal-fade { opacity: 0; transition: opacity 1400ms ease; }
+.hb-reveal-fade.hb-in { opacity: 1; }
+
+.hb-stagger > * { transition-delay: var(--d, 0ms); }
+
+.hb-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.8em) rotate(2deg);
+  transition: opacity 900ms cubic-bezier(0.2,0.8,0.2,1), transform 900ms cubic-bezier(0.2,0.8,0.2,1);
+}
+.hb-words.hb-in .hb-word { opacity: 1; transform: translateY(0) rotate(0deg); }
+
+.hb-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+.hb-chars.hb-in .hb-char { opacity: 1; transform: translateY(0); }
+
+.hb-rule-grow {
+  height: 1px;
+  background: var(--hb-rule-strong);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 1400ms cubic-bezier(0.7,0,0.3,1);
+}
+.hb-rule-grow.hb-in { transform: scaleX(1); }
+
+@keyframes hb-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.hb-marquee-track {
+  display: inline-flex;
+  gap: 56px;
+  animation: hb-marquee 40s linear infinite;
+  will-change: transform;
+}
+
+.hb-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  width: 14px; height: 14px;
+  border-radius: 999px;
+  background: var(--hb-accent);
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: width 300ms cubic-bezier(0.2,0.7,0.2,1),
+              height 300ms cubic-bezier(0.2,0.7,0.2,1),
+              background 200ms, opacity 200ms;
+}
+.hb-cursor.hb-cursor-hot { width: 96px; height: 96px; background: var(--hb-ink); }
+.hb-cursor-label {
+  position: fixed;
+  pointer-events: none;
+  z-index: 10000;
+  font-family: var(--hb-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--hb-bg);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 200ms;
+}
+.hb-cursor-label.hb-on { opacity: 1; }
+
+.hb-photo {
+  filter: grayscale(1) contrast(1.05) brightness(0.85);
+  transition: filter 900ms cubic-bezier(0.2,0.7,0.2,1), transform 900ms cubic-bezier(0.2,0.7,0.2,1);
+  will-change: filter, transform;
+}
+.hb-photo:hover { filter: grayscale(0) contrast(1) brightness(1); transform: scale(1.02); }
+
+.hb-num { font-family: var(--hb-serif); font-feature-settings: "tnum" 1, "lnum" 1; }
+
+.hb-spec-row {
+  transition: padding 500ms cubic-bezier(0.2,0.7,0.2,1), background 500ms, color 500ms;
+}
+.hb-spec-row:hover { padding-left: 32px; background: rgba(246,243,236,0.04); }
+.hb-light .hb-spec-row:hover { background: rgba(14,14,14,0.04); }
+
+.hb-parallax { transform: translate3d(0, var(--py, 0px), 0); transition: transform 60ms linear; }
+
+@keyframes hb-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.8); }
+}
+.hb-pulse { animation: hb-pulse 2s ease-in-out infinite; }
+
+.hb-magnet { transition: transform 400ms cubic-bezier(0.2,0.7,0.2,1); will-change: transform; }
+
 @layer base {
   body {
     @apply bg-ink-900 text-white font-sans selection:bg-white selection:text-ink-900;
