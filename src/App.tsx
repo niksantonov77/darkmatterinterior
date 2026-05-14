@@ -11,6 +11,7 @@ import HybridQuote from './components/hybrid/Quote';
 import HybridAbout from './components/hybrid/About';
 import HybridContact from './components/hybrid/Contact';
 import HybridFooter from './components/hybrid/Footer';
+import FloatingCTA from './components/hybrid/FloatingCTA';
 
 function App() {
   useEffect(() => {
@@ -52,6 +53,7 @@ function App() {
         <HybridContact />
       </main>
       <HybridFooter />
+      <FloatingCTA />
     </>
   );
 }

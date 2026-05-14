@@ -33,7 +33,12 @@ const fieldWrap: React.CSSProperties = {
 
 type Status = 'idle' | 'sending' | 'success' | 'error';
 
-export default function ContactForm() {
+interface Props {
+  onSuccess?: () => void;
+  successInModal?: boolean;
+}
+
+export default function ContactForm({ onSuccess, successInModal }: Props) {
   const [status, setStatus] = useState<Status>('idle');
   const [files, setFiles] = useState<FileList | null>(null);
   const [form, setForm] = useState({
@@ -69,7 +74,6 @@ export default function ContactForm() {
 
       if (!res.ok) throw new Error('formspree');
 
-      // Fire-and-forget Telegram notification
       fetch('/api/notify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -77,18 +81,18 @@ export default function ContactForm() {
       }).catch(() => {});
 
       setStatus('success');
+      onSuccess?.();
     } catch {
       setStatus('error');
     }
   };
 
-  if (status === 'success') {
+  const isSuccess = status === 'success' || successInModal;
+
+  if (isSuccess) {
     return (
-      <div style={{
-        background: 'var(--hb-bg)', padding: '64px 48px',
-        textAlign: 'center', borderTop: '1px solid var(--hb-rule)',
-      }}>
-        <div style={{ fontFamily: 'var(--hb-serif)', fontWeight: 300, fontStyle: 'italic', fontSize: 48, color: 'var(--hb-ink)', marginBottom: 16 }}>
+      <div style={{ padding: '56px 40px', textAlign: 'center' }}>
+        <div style={{ fontFamily: 'var(--hb-serif)', fontWeight: 300, fontStyle: 'italic', fontSize: 40, color: 'var(--hb-ink)', marginBottom: 16, letterSpacing: '-0.02em' }}>
           Заявка отправлена.
         </div>
         <p style={{ fontFamily: 'var(--hb-sans)', fontSize: 14, color: 'var(--hb-ink-dim)', margin: 0 }}>
@@ -99,12 +103,8 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ background: 'var(--hb-bg)', padding: 48, borderTop: '1px solid var(--hb-rule)' }}>
-      <div style={{ fontFamily: 'var(--hb-sans)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--hb-ink-faint)', marginBottom: 40 }}>
-        Оставить заявку
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '32px 48px' }}>
+    <form onSubmit={handleSubmit} style={{ padding: '32px 40px 40px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '28px 40px' }}>
         <div style={fieldWrap}>
           <label style={labelStyle}>Ваше имя *</label>
           <input name="name" value={form.name} onChange={handleChange} required placeholder="Иван Иванов" style={inputStyle}
@@ -196,14 +196,14 @@ export default function ContactForm() {
 
         <div style={{ ...fieldWrap, gridColumn: '1 / -1' }}>
           <label style={labelStyle}>Комментарий</label>
-          <textarea name="comment" value={form.comment} onChange={handleChange} rows={4} placeholder="Расскажите подробнее о задаче…"
+          <textarea name="comment" value={form.comment} onChange={handleChange} rows={3} placeholder="Расскажите подробнее о задаче…"
             style={{ ...inputStyle, resize: 'vertical', paddingTop: 12, lineHeight: 1.6 }}
             onFocus={e => (e.currentTarget.style.borderBottomColor = 'var(--hb-ink)')}
             onBlur={e => (e.currentTarget.style.borderBottomColor = 'var(--hb-rule-strong)')} />
         </div>
       </div>
 
-      <div style={{ marginTop: 40, display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
+      <div style={{ marginTop: 32, display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
         <button type="submit" disabled={status === 'sending'}
           style={{
             background: 'var(--hb-ink)', color: 'var(--hb-bg)',
@@ -219,11 +219,11 @@ export default function ContactForm() {
         </button>
         {status === 'error' && (
           <span style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, color: '#e05252' }}>
-            Ошибка отправки. Попробуйте ещё раз или напишите на почту.
+            Ошибка. Попробуйте ещё раз или напишите на почту.
           </span>
         )}
-        <span style={{ fontFamily: 'var(--hb-sans)', fontSize: 12, color: 'var(--hb-ink-faint)', maxWidth: 320, lineHeight: 1.5 }}>
-          Нажимая «Отправить заявку», вы соглашаетесь с условиями обработки персональных данных.
+        <span style={{ fontFamily: 'var(--hb-sans)', fontSize: 11, color: 'var(--hb-ink-faint)', maxWidth: 280, lineHeight: 1.5 }}>
+          Нажимая кнопку, вы соглашаетесь с условиями обработки персональных данных.
         </span>
       </div>
     </form>

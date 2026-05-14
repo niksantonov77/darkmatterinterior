@@ -1,7 +1,6 @@
 import { useReveal } from './anim-hooks';
 import Magnet from './Magnet';
 import RevealText from './RevealText';
-import ContactForm from './ContactForm';
 
 const PhoneIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -10,13 +9,13 @@ const PhoneIcon = () => (
 );
 
 const TelegramIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.7 8c-.12.55-.46.68-.93.42l-2.6-1.91-1.25 1.2c-.14.14-.26.26-.53.26l.19-2.72 4.97-4.48c.22-.19-.05-.3-.33-.11L7.9 14.39l-2.54-.8c-.55-.17-.56-.55.12-.82l9.93-3.83c.46-.17.86.11.23.86z"/>
   </svg>
 );
 
 const InstagramIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
@@ -24,11 +23,23 @@ const InstagramIcon = () => (
 );
 
 const MailIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
     <polyline points="22,6 12,13 2,6"/>
   </svg>
 );
+
+const iconLinkStyle: React.CSSProperties = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: 48,
+  height: 48,
+  color: 'var(--hb-ink-faint)',
+  textDecoration: 'none',
+  border: '1px solid var(--hb-rule)',
+  transition: 'color 250ms, border-color 250ms, background 250ms',
+};
 
 export default function HybridContact() {
   const ref = useReveal();
@@ -52,7 +63,7 @@ export default function HybridContact() {
           }} />
       </div>
 
-      <div ref={ref} className="hb-reveal hb-grid-contact" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, background: 'var(--hb-rule)', marginBottom: 1 }}>
+      <div ref={ref} className="hb-reveal hb-grid-contact" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, background: 'var(--hb-rule)' }}>
         {/* Left: description + CTA */}
         <div style={{ background: 'var(--hb-bg)', padding: 48, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 320 }}>
           <p style={{ fontFamily: 'var(--hb-sans)', fontSize: 15, lineHeight: 1.75, color: 'var(--hb-ink-dim)', maxWidth: 440, margin: 0 }}>
@@ -78,45 +89,35 @@ export default function HybridContact() {
         {/* Right: contact details */}
         <div style={{ background: 'var(--hb-bg)', padding: 48 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 40 }}>
-            <span style={{ color: 'var(--hb-ink-faint)' }}><PhoneIcon /></span>
+            <span style={{ color: 'var(--hb-ink-faint)', flexShrink: 0 }}><PhoneIcon /></span>
             <div className="hb-contact-phone" style={{ fontFamily: 'var(--hb-serif)', fontWeight: 300, fontSize: 52, letterSpacing: '-0.025em', color: 'var(--hb-ink)', lineHeight: 1.1 }}>
               +7 911 911-75-32
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {/* Icon-only social links */}
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
             <a href="https://t.me/darkmatterstudio" target="_blank" rel="noopener noreferrer"
-              style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, color: 'var(--hb-ink-dim)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12 }}
-              onMouseEnter={e => (e.currentTarget.style.color = 'var(--hb-ink)')}
-              onMouseLeave={e => (e.currentTarget.style.color = 'var(--hb-ink-dim)')}
-            >
-              <span style={{ color: 'var(--hb-ink-faint)', flexShrink: 0 }}><TelegramIcon /></span>
-              @darkmatterstudio ↗
+              aria-label="Telegram" style={iconLinkStyle}
+              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'var(--hb-ink)'; el.style.borderColor = 'var(--hb-ink)'; el.style.background = 'var(--hb-bg-3)'; }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'var(--hb-ink-faint)'; el.style.borderColor = 'var(--hb-rule)'; el.style.background = 'transparent'; }}>
+              <TelegramIcon />
             </a>
-
             <a href="https://www.instagram.com/interior.darkmatter" target="_blank" rel="noopener noreferrer"
-              style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, color: 'var(--hb-ink-dim)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12 }}
-              onMouseEnter={e => (e.currentTarget.style.color = 'var(--hb-ink)')}
-              onMouseLeave={e => (e.currentTarget.style.color = 'var(--hb-ink-dim)')}
-            >
-              <span style={{ color: 'var(--hb-ink-faint)', flexShrink: 0 }}><InstagramIcon /></span>
-              @interior.darkmatter ↗
+              aria-label="Instagram" style={iconLinkStyle}
+              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'var(--hb-ink)'; el.style.borderColor = 'var(--hb-ink)'; el.style.background = 'var(--hb-bg-3)'; }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'var(--hb-ink-faint)'; el.style.borderColor = 'var(--hb-rule)'; el.style.background = 'transparent'; }}>
+              <InstagramIcon />
             </a>
-
             <a href="mailto:interior.darkmatter@gmail.com"
-              style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, color: 'var(--hb-ink-dim)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12 }}
-              onMouseEnter={e => (e.currentTarget.style.color = 'var(--hb-ink)')}
-              onMouseLeave={e => (e.currentTarget.style.color = 'var(--hb-ink-dim)')}
-            >
-              <span style={{ color: 'var(--hb-ink-faint)', flexShrink: 0 }}><MailIcon /></span>
-              interior.darkmatter@gmail.com
+              aria-label="Email" style={iconLinkStyle}
+              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'var(--hb-ink)'; el.style.borderColor = 'var(--hb-ink)'; el.style.background = 'var(--hb-bg-3)'; }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'var(--hb-ink-faint)'; el.style.borderColor = 'var(--hb-rule)'; el.style.background = 'transparent'; }}>
+              <MailIcon />
             </a>
           </div>
         </div>
       </div>
-
-      {/* Contact form */}
-      <ContactForm />
     </section>
   );
 }
