@@ -1,5 +1,11 @@
 export type ProjectCategory = 'Для семей' | 'Для предпринимателей' | 'Для инвесторов' | 'Для молодых пар' | 'Премиум';
 
+export interface GalleryPair {
+    viz: string;
+    photo: string;
+    caption: string;
+}
+
 export interface PortfolioProject {
     id: string;
     slug: string;
@@ -12,10 +18,10 @@ export interface PortfolioProject {
 
     // Content blocks
     who: string;
-    challenge: string; // "Вызов" или "Концепция"
-    solution: string; // "Что мы сделали" или "Палитра и материалы"
-    details: string; // "Детали, которые имеют значение"
-    result?: string; // "Результат" (опционально для текущих)
+    challenge: string;
+    solution: string;
+    details: string;
+    result?: string;
 
     // Specs
     area?: string;
@@ -24,6 +30,7 @@ export interface PortfolioProject {
     // Media
     mainImage: string;
     gallery: string[];
+    galleryPairs?: GalleryPair[];
 }
 
 export const portfolioData: PortfolioProject[] = [
@@ -186,5 +193,41 @@ export const portfolioData: PortfolioProject[] = [
         result: "Квартира, которая не оставляет равнодушным. Кто-то говорит «вау», кто-то — «слишком смело». Но никто не говорит «обычная». А для IT-пары это и было целью.",
         mainImage: "./portfolio/kosmo/1.jpg",
         gallery: ["./portfolio/kosmo/2.jpg", "./portfolio/kosmo/3.jpg", "./portfolio/kosmo/4.jpg", "./portfolio/kosmo/5.jpg"]
+    },
+    {
+        id: "yanila-country-club",
+        slug: "yanila-country-club",
+        metaTitle: "ЖК Янила Кантри Клаб — дизайн и ремонт | Dark Matter",
+        metaDescription: "Квартира в ЖК Янила Кантри Клаб. Нейтральная палитра, дерево, авторская мебель. Студия Dark Matter, Санкт-Петербург.",
+        status: "Реализован",
+        title: "ЖК Янила Кантри Клаб",
+        shortDescription: "Тёплый минимализм — квартира, где каждая деталь работает на атмосферу",
+        category: "Для семей",
+        who: "Молодая пара. Первая собственная квартира после съёмного жилья — хотелось пространства, которое по-настоящему своё. Без лишнего, но с характером.",
+        challenge: "Небольшая площадь требовала точных решений: каждый сантиметр должен работать. При этом квартира не должна выглядеть «маленькой» — задача создать ощущение простора и уюта одновременно.",
+        solution: "Нейтральная тёплая палитра: кремово-бежевые стены, паркет в ёлочку, деревянные акценты в кухне и спальне. ТВ-зона с вертикальными панелями во всю стену визуально поднимает потолок. Кухня — белые матовые фасады, деревянные колонны с витриной, чёрная фурнитура. Санузлы — контраст чёрной сантехники на светлых поверхностях.",
+        details: "Потолочный светильник в гостиной — прямоугольный LED-контур, повторяющий периметр помещения. Паркет ёлочкой задаёт направление и ритм во всех зонах. Двери без наличников — все с чёрными торцевыми кромками. Встроенный робот-пылесос в нише шкафа прихожей.",
+        result: "Сдан в срок. Клиенты получили укомплектованную квартиру под ключ — с мебелью, светом и текстилем.",
+        area: "55 м²",
+        mainImage: "assets/yanila/MOD_0039.jpg",
+        galleryPairs: [
+            { viz: "assets/yanila/viz-prikhojaya.png", photo: "assets/yanila/MOD_0096.jpg", caption: "Прихожая" },
+            { viz: "assets/yanila/viz-gostinaya.png",  photo: "assets/yanila/MOD_0039.jpg", caption: "Гостиная" },
+            { viz: "assets/yanila/viz-kukhnya.png",    photo: "assets/yanila/MOD_0025.jpg", caption: "Кухня" },
+        ],
+        gallery: [
+            "assets/yanila/MOD_0034.jpg",
+            "assets/yanila/MOD_0044.jpg",
+            "assets/yanila/MOD_0094.jpg",
+            "assets/yanila/MOD_0060.jpg",
+            "assets/yanila/MOD_0070.jpg",
+            "assets/yanila/MOD_0082.jpg",
+            "assets/yanila/MOD_0051.jpg",
+            "assets/yanila/MOD_0050.jpg",
+            "assets/yanila/MOD_0041.jpg",
+            "assets/yanila/MOD_0047.jpg",
+            "assets/yanila/MOD_0098.jpg",
+            "assets/yanila/MOD_0056.jpg",
+        ],
     }
 ];

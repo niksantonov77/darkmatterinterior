@@ -1,18 +1,20 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useReveal } from './anim-hooks';
 import RevealText from './RevealText';
 
 const projects = [
-  { n: '001', t: 'Квартира на Карповке',   loc: 'Санкт-Петербург', area: '412 м²', year: '2025', img: '/assets/imagery-stone-texture.jpg' },
-  { n: '002', t: 'Квартира на Тверской',   loc: 'Москва',          area: '186 м²', year: '2024', img: '/assets/imagery-reception.jpg' },
-  { n: '003', t: 'Пентхаус ЗИЛАРТ',        loc: 'Москва',          area: '231 м²', year: '2024', img: '/assets/imagery-interior-armchair.jpg' },
-  { n: '004', t: 'Дом на Петроградской',   loc: 'Санкт-Петербург', area: '298 м²', year: '2023', img: '/assets/imagery-monogram-dark.jpg' },
+  { n: '001', t: 'Квартира на Карповке',      loc: 'Санкт-Петербург',   area: '412 м²', year: '2025', img: '/assets/imagery-stone-texture.jpg',     slug: null },
+  { n: '002', t: 'Квартира на Тверской',      loc: 'Москва',            area: '186 м²', year: '2024', img: '/assets/imagery-reception.jpg',          slug: null },
+  { n: '003', t: 'Пентхаус ЗИЛАРТ',           loc: 'Москва',            area: '231 м²', year: '2024', img: '/assets/imagery-interior-armchair.jpg',  slug: null },
+  { n: '004', t: 'ЖК Янила Кантри Клаб',      loc: 'Ленинградская обл.', area: '55 м²', year: '2024', img: '/assets/yanila/MOD_0039.jpg',            slug: 'yanila-country-club' },
 ];
 
 export default function HybridWork() {
   const ref = useReveal();
   const ruleRef = useReveal();
   const [hover, setHover] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   return (
     <section id="work" className="hb-section-px" style={{ padding: 'var(--hb-pad-y) 32px', position: 'relative' }}>
@@ -61,13 +63,14 @@ export default function HybridWork() {
             className="hb-spec-row hb-grid-work-table"
             onMouseEnter={() => setHover(i)}
             onMouseLeave={() => setHover(null)}
+            onClick={() => p.slug && navigate(`/portfolio/${p.slug}`)}
             style={{
               display: 'grid',
               gridTemplateColumns: '70px 2fr 1fr 1fr 100px 60px',
               alignItems: 'center', gap: 32,
               padding: '36px 16px',
               borderBottom: '1px solid var(--hb-rule-strong)',
-              cursor: 'pointer',
+              cursor: p.slug ? 'pointer' : 'default',
             }}>
             <span className="hb-work-col-num" style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, color: 'var(--hb-ink-faint)' }}>{p.n}</span>
             <h3 style={{

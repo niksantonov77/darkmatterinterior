@@ -89,22 +89,76 @@ export default function ProjectPage() {
                     </div>
                 </section>
 
-                {/* Gallery */}
-                <section className="pb-24">
+                {/* Gallery — viz/photo pairs */}
+                {project.galleryPairs && project.galleryPairs.length > 0 && (
+                    <section className="pb-0">
+                        <div className="container mx-auto px-6 md:px-12">
+                            {project.galleryPairs.map((pair, idx) => {
+                                const reversed = idx % 2 === 1;
+                                const items = reversed
+                                    ? [{ src: pair.photo, label: null }, { src: pair.viz, label: 'Визуализация' }]
+                                    : [{ src: pair.viz, label: 'Визуализация' }, { src: pair.photo, label: null }];
+                                return (
+                                    <motion.div
+                                        key={idx}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: 0.1 }}
+                                        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4, marginBottom: 4 }}
+                                    >
+                                        {items.map((item, j) => (
+                                            <div key={j} style={{ position: 'relative', overflow: 'hidden' }}>
+                                                <img
+                                                    src={`/${item.src.replace('./', '')}`}
+                                                    alt={`${pair.caption}${item.label ? ' — визуализация' : ' — готовый объект'}`}
+                                                    style={{ width: '100%', display: 'block', aspectRatio: '4/3', objectFit: 'cover' }}
+                                                />
+                                                {item.label && (
+                                                    <div style={{
+                                                        position: 'absolute', top: 12, left: 12,
+                                                        background: 'rgba(0,0,0,0.55)', color: '#fff',
+                                                        fontSize: 10, padding: '4px 8px',
+                                                        letterSpacing: '0.08em', textTransform: 'uppercase',
+                                                        fontFamily: 'sans-serif',
+                                                    }}>
+                                                        Визуализация
+                                                    </div>
+                                                )}
+                                                <div style={{
+                                                    position: 'absolute', bottom: 0, left: 0, right: 0,
+                                                    padding: '24px 16px 12px',
+                                                    background: 'linear-gradient(transparent, rgba(0,0,0,0.4))',
+                                                    color: '#fff', fontSize: 12,
+                                                    fontFamily: 'sans-serif', letterSpacing: '0.04em',
+                                                }}>
+                                                    {pair.caption}{item.label ? '' : ' — готово'}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </motion.div>
+                                );
+                            })}
+                        </div>
+                    </section>
+                )}
+
+                {/* Gallery — additional photos */}
+                <section className="pb-24 pt-4">
                     <div className="container mx-auto px-6 md:px-12">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {project.gallery.map((img, idx) => (
                                 <motion.div
                                     key={idx}
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.1 }}
-                                    className={`relative overflow-hidden ${idx % 3 === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-square md:aspect-[4/5]'}`}
+                                    transition={{ delay: idx * 0.05 }}
+                                    className={`relative overflow-hidden ${!project.galleryPairs && idx % 3 === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-[4/3]'}`}
                                 >
                                     <img
                                         src={`/${img.replace('./', '')}`}
-                                        alt={`${project.title} - Деталь ${idx + 1}`}
+                                        alt={`${project.title} — ${idx + 1}`}
                                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
                                     />
                                 </motion.div>
