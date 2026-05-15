@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+// Form submits directly to Telegram via /api/notify
 
 const inputStyle: React.CSSProperties = {
   width: '100%',
@@ -61,24 +61,24 @@ export default function ContactForm({ onSuccess, successInModal }: Props) {
     e.preventDefault();
     setStatus('sending');
 
-    const data = new FormData();
-    Object.entries(form).forEach(([k, v]) => data.append(k, v));
-    if (files) Array.from(files).forEach(f => data.append('references', f));
-
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        body: data,
-        headers: { Accept: 'application/json' },
-      });
-
-      if (!res.ok) throw new Error('formspree');
-
-      fetch('/api/notify', {
+      const res = await fetch('/api/notify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: form.name, phone: form.phone, address: form.address, area: form.area, budget: form.budget }),
-      }).catch(() => {});
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          address: form.address,
+          area: form.area,
+          budget: form.budget,
+          style: form.style,
+          source: form.source,
+          format: form.format,
+          comment: form.comment,
+        }),
+      });
+
+      if (!res.ok) throw new Error('notify');
 
       setStatus('success');
       onSuccess?.();

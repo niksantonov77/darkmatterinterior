@@ -115,6 +115,10 @@ export default function HybridFooter() {
               © {new Date().getFullYear()} Dark Matter Studio
             </div>
             <div style={{ display: 'flex', gap: 20 }}>
+              <Link to="/faq" style={{ fontFamily: 'var(--hb-sans)', fontSize: 11, color: 'var(--hb-ink-faint)', textDecoration: 'none' }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'var(--hb-ink)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'var(--hb-ink-faint)')}
+              >FAQ</Link>
               <Link to="/offer" style={{ fontFamily: 'var(--hb-sans)', fontSize: 11, color: 'var(--hb-ink-faint)', textDecoration: 'none' }}
                 onMouseEnter={e => (e.currentTarget.style.color = 'var(--hb-ink)')}
                 onMouseLeave={e => (e.currentTarget.style.color = 'var(--hb-ink-faint)')}

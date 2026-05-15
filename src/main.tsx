@@ -8,6 +8,7 @@ import Refund from './pages/Refund.tsx'
 import ProjectPage from './pages/ProjectPage.tsx'
 import Blog from './pages/Blog.tsx'
 import BlogPost from './pages/BlogPost.tsx'
+import FaqPage from './pages/FaqPage.tsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -21,6 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 <Route path="/portfolio/:slug" element={<ProjectPage />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/blog/:id" element={<BlogPost />} />
+                <Route path="/faq" element={<FaqPage />} />
             </Routes>
         </BrowserRouter>
     </React.StrictMode>,

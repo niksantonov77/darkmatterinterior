@@ -7,19 +7,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const { TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID } = process.env;
   if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
-    return res.status(200).json({ ok: true, skipped: true });
+    return res.status(500).json({ ok: false, error: 'Telegram not configured' });
   }
 
-  const { name, phone, address, area, budget } = req.body ?? {};
+  const { name, phone, address, area, budget, style, source, format, comment } = req.body ?? {};
 
   const lines = [
     '🏠 <b>Новая заявка — Dark Matter Studio</b>',
     '',
     `👤 <b>Имя:</b> ${name || '—'}`,
     `📞 <b>Телефон:</b> ${phone || '—'}`,
-    address ? `📍 <b>Объект:</b> ${address}` : null,
-    area ? `📐 <b>Площадь:</b> ${area} м²` : null,
-    budget ? `💰 <b>Бюджет:</b> ${budget}` : null,
+    address  ? `📍 <b>Объект:</b> ${address}`       : null,
+    area     ? `📐 <b>Площадь:</b> ${area} м²`       : null,
+    budget   ? `💰 <b>Бюджет:</b> ${budget}`          : null,
+    style    ? `🎨 <b>Стиль:</b> ${style}`             : null,
+    format   ? `💬 <b>Формат:</b> ${format}`           : null,
+    source   ? `📣 <b>Источник:</b> ${source}`         : null,
+    comment  ? `\n📝 <b>Комментарий:</b>\n${comment}` : null,
   ].filter(Boolean).join('\n');
 
   try {
@@ -36,9 +40,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (!tgRes.ok) {
       const err = await tgRes.text();
       console.error('Telegram API error:', err);
+      return res.status(500).json({ ok: false, error: err });
     }
   } catch (err) {
     console.error('Telegram notify failed:', err);
+    return res.status(500).json({ ok: false });
   }
 
   return res.status(200).json({ ok: true });
