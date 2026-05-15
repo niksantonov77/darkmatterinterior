@@ -14,6 +14,12 @@ export default function FloatingCTA() {
   }, []);
 
   useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener('openContactForm', handler);
+    return () => window.removeEventListener('openContactForm', handler);
+  }, []);
+
+  useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [open]);

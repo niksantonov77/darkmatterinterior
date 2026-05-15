@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import Lenis from 'lenis';
-import CustomCursor from './components/hybrid/CustomCursor';
 import HybridNav from './components/hybrid/Nav';
 import HybridHero from './components/hybrid/Hero';
 import HybridStats from './components/hybrid/Stats';
@@ -40,7 +39,6 @@ function App() {
 
   return (
     <>
-      <CustomCursor />
       <HybridNav />
       <main>
         <HybridHero />

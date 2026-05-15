@@ -38,18 +38,18 @@ export default function HybridNav() {
         transition: 'padding 400ms cubic-bezier(0.2,0.7,0.2,1), background 400ms, border-color 400ms',
       }}>
         <a href="/" style={{
-          display: 'inline-flex', alignItems: 'baseline', gap: 12,
+          display: 'inline-flex', alignItems: 'center', gap: 12,
           textDecoration: 'none', color: 'var(--hb-ink)',
         }}>
           <img
             src="/assets/logo-black-wide.png"
             alt="Dark Matter"
-            style={{ height: 28, filter: 'invert(1)', objectFit: 'contain' }}
+            style={{ height: 36, filter: 'invert(1)', objectFit: 'contain' }}
           />
           <span className="hb-hide-mobile" style={{
-            fontFamily: 'var(--hb-sans)', fontSize: 11, fontWeight: 400,
+            fontFamily: 'var(--hb-sans)', fontSize: 12, fontWeight: 400,
             letterSpacing: '0.04em', color: 'var(--hb-ink-faint)',
-            paddingLeft: 12, borderLeft: '1px solid var(--hb-rule)',
+            paddingLeft: 14, borderLeft: '1px solid var(--hb-rule)',
           }}>
             Design & Build Studio
           </span>

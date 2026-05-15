@@ -8,10 +8,16 @@ export default function HybridFooter() {
       <div className="hb-section-px hb-grid-footer" style={{ padding: '64px 32px', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 48 }}>
         {/* Brand column */}
         <div>
-          <img src="/assets/logo-black-wide.png" alt="Dark Matter" style={{ height: 28, marginBottom: 24, filter: 'var(--hb-logo-filter, invert(1))' }} />
-          <p style={{ fontFamily: 'var(--hb-sans)', fontSize: 13, lineHeight: 1.7, color: 'var(--hb-ink-dim)', maxWidth: 280, margin: 0 }}>
-            Студия дизайна и ремонта интерьеров класса бизнес и премиум. Санкт-Петербург и Москва.
-          </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 0 }}>
+            <img src="/assets/logo-black-wide.png" alt="Dark Matter" style={{ height: 40, filter: 'var(--hb-logo-filter, invert(1))', objectFit: 'contain' }} />
+            <span style={{
+              fontFamily: 'var(--hb-sans)', fontSize: 12, fontWeight: 400,
+              letterSpacing: '0.04em', color: 'var(--hb-ink-faint)',
+              paddingLeft: 14, borderLeft: '1px solid var(--hb-rule)',
+            }}>
+              Design & Build Studio
+            </span>
+          </div>
         </div>
 
         {/* Sections */}

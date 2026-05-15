@@ -1,12 +1,5 @@
 import { useReveal } from './anim-hooks';
-import Magnet from './Magnet';
 import RevealText from './RevealText';
-
-const PhoneIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-  </svg>
-);
 
 const TelegramIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -44,6 +37,8 @@ const iconLinkStyle: React.CSSProperties = {
 export default function HybridContact() {
   const ref = useReveal();
 
+  const openForm = () => window.dispatchEvent(new CustomEvent('openContactForm'));
+
   return (
     <section id="contact" className="hb-section-px" style={{
       padding: 'var(--hb-pad-y) 32px',
@@ -64,35 +59,48 @@ export default function HybridContact() {
       </div>
 
       <div ref={ref} className="hb-reveal hb-grid-contact" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, background: 'var(--hb-rule)' }}>
-        {/* Left: description + CTA */}
-        <div style={{ background: 'var(--hb-bg)', padding: 48, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 320 }}>
+
+        {/* Left: form CTA */}
+        <div style={{ background: 'var(--hb-bg)', padding: 48, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 320, gap: 40 }}>
           <p style={{ fontFamily: 'var(--hb-sans)', fontSize: 15, lineHeight: 1.75, color: 'var(--hb-ink-dim)', maxWidth: 440, margin: 0 }}>
-            Расскажите о вашем объекте — обсудим сроки, бюджет и подход. Без обязательств. Первый разговор бесплатный.
+            Расскажите о квартире — площадь, примерный бюджет, когда хотите начать. Посмотрим, чем можем помочь, и назначим встречу на объекте.
           </p>
-          <Magnet strength={0.4}>
-            <a href="tel:+79119117532" style={{
-              display: 'inline-flex', alignItems: 'center', gap: 12,
-              fontFamily: 'var(--hb-sans)', fontSize: 13, letterSpacing: '0.06em',
-              textTransform: 'uppercase', color: 'var(--hb-bg)',
-              background: 'var(--hb-ink)', padding: '18px 32px',
-              textDecoration: 'none',
-              transition: 'opacity 300ms',
+          <button
+            onClick={openForm}
+            style={{
+              alignSelf: 'flex-start',
+              background: 'var(--hb-ink)', color: 'var(--hb-bg)',
+              border: 'none', padding: '18px 32px',
+              fontFamily: 'var(--hb-sans)', fontSize: 13,
+              letterSpacing: '0.06em', textTransform: 'uppercase',
+              cursor: 'pointer', transition: 'opacity 300ms',
             }}
-              onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
-              onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
-            >
-              Позвонить +7 911 911-75-32
-            </a>
-          </Magnet>
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+          >
+            Оставить заявку
+          </button>
         </div>
 
-        {/* Right: contact details */}
-        <div style={{ background: 'var(--hb-bg)', padding: 48 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 40 }}>
-            <span style={{ color: 'var(--hb-ink-faint)', flexShrink: 0 }}><PhoneIcon /></span>
-            <div className="hb-contact-phone" style={{ fontFamily: 'var(--hb-serif)', fontWeight: 300, fontSize: 52, letterSpacing: '-0.025em', color: 'var(--hb-ink)', lineHeight: 1.1 }}>
-              +7 911 911-75-32
-            </div>
+        {/* Right: phone + social */}
+        <div style={{ background: 'var(--hb-bg)', padding: 48, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 320 }}>
+          <div>
+            <p style={{ fontFamily: 'var(--hb-sans)', fontSize: 14, color: 'var(--hb-ink-dim)', margin: '0 0 20px', lineHeight: 1.6 }}>
+              Удобнее говорить — просто наберите.<br />
+              Берём трубку с 9 до 21.
+            </p>
+            <a href="tel:+79119117532" style={{ textDecoration: 'none' }}>
+              <div className="hb-contact-phone" style={{
+                fontFamily: 'var(--hb-serif)', fontWeight: 300, fontSize: 52,
+                letterSpacing: '-0.025em', color: 'var(--hb-ink)', lineHeight: 1.1,
+                transition: 'opacity 300ms',
+              }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = '0.7')}
+                onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+              >
+                +7 911 911-75-32
+              </div>
+            </a>
           </div>
 
           {/* Icon-only social links */}
