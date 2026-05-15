@@ -1,7 +1,7 @@
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { portfolioData } from '../data/portfolio';
-import { useEffect } from 'react';
+import { useEffect, useState, FormEvent } from 'react';
 
 export default function ProjectPage() {
     const { slug } = useParams<{ slug: string }>();
@@ -17,6 +17,30 @@ export default function ProjectPage() {
         }
         window.scrollTo(0, 0);
     }, [project]);
+
+    const [form, setForm] = useState({ name: '', phone: '', telegram: '' });
+    const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        setStatus('sending');
+        try {
+            const res = await fetch('/api/notify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: form.name,
+                    phone: form.phone,
+                    comment: form.telegram ? `Telegram: @${form.telegram.replace('@', '')}` : undefined,
+                    source: 'Страница портфолио',
+                }),
+            });
+            if (!res.ok) throw new Error();
+            setStatus('success');
+        } catch {
+            setStatus('error');
+        }
+    };
 
     if (!project) {
         return <Navigate to="/" replace />;
@@ -206,18 +230,81 @@ export default function ProjectPage() {
 
                 {/* Footer CTA */}
                 <section className="py-24 bg-ink-900 text-cream-500">
-                    <div className="container mx-auto px-6 md:px-12 text-center">
-                        <h2 className="text-3xl md:text-5xl font-serif font-light mb-8">
-                            Готовы обсудить подобный проект?
+                    <div className="container mx-auto px-6 md:px-12 max-w-xl">
+                        <h2 className="text-3xl md:text-5xl font-serif font-light mb-4 text-center">
+                            Обсудить проект
                         </h2>
-                        <a
-                            href="https://t.me/DarkMatterInt_bot?start=project"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block bg-white text-ink-900 px-10 py-5 rounded-none font-sans uppercase tracking-widest text-sm hover:bg-cream-500 transition-colors"
-                        >
-                            Написать в Telegram
-                        </a>
+                        <p className="text-white/50 text-sm text-center mb-12 font-sans tracking-wide">
+                            Свяжемся в течение рабочего дня
+                        </p>
+
+                        {status === 'success' ? (
+                            <div className="text-center">
+                                <div className="text-2xl font-serif font-light mb-3">Заявка отправлена.</div>
+                                <p className="text-white/50 text-sm font-sans">Мы свяжемся с вами в ближайшее время.</p>
+                                <a
+                                    href="https://t.me/darkmatterinterior_bot"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-block mt-8 text-white/40 hover:text-white text-xs font-sans tracking-widest uppercase transition-colors"
+                                >
+                                    Или напишите в Telegram →
+                                </a>
+                            </div>
+                        ) : (
+                            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                                <div className="flex flex-col gap-1">
+                                    <label className="text-white/40 text-xs font-sans tracking-widest uppercase">Ваше имя *</label>
+                                    <input
+                                        required
+                                        value={form.name}
+                                        onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                                        placeholder="Иван Иванов"
+                                        className="bg-transparent border-b border-white/20 focus:border-white outline-none text-white font-sans text-base py-3 placeholder:text-white/20 transition-colors"
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                    <label className="text-white/40 text-xs font-sans tracking-widest uppercase">Телефон *</label>
+                                    <input
+                                        required
+                                        type="tel"
+                                        value={form.phone}
+                                        onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
+                                        placeholder="+7 (___) ___-__-__"
+                                        className="bg-transparent border-b border-white/20 focus:border-white outline-none text-white font-sans text-base py-3 placeholder:text-white/20 transition-colors"
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                    <label className="text-white/40 text-xs font-sans tracking-widest uppercase">Telegram</label>
+                                    <input
+                                        value={form.telegram}
+                                        onChange={e => setForm(f => ({ ...f, telegram: e.target.value }))}
+                                        placeholder="@username"
+                                        className="bg-transparent border-b border-white/20 focus:border-white outline-none text-white font-sans text-base py-3 placeholder:text-white/20 transition-colors"
+                                    />
+                                </div>
+                                <div className="flex items-center gap-6 mt-2 flex-wrap">
+                                    <button
+                                        type="submit"
+                                        disabled={status === 'sending'}
+                                        className="bg-white text-ink-900 px-10 py-4 font-sans uppercase tracking-widest text-sm hover:bg-cream-500 transition-colors disabled:opacity-50"
+                                    >
+                                        {status === 'sending' ? 'Отправляем…' : 'Отправить'}
+                                    </button>
+                                    <a
+                                        href="https://t.me/darkmatterinterior_bot"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-white/40 hover:text-white text-xs font-sans tracking-widest uppercase transition-colors"
+                                    >
+                                        Написать в Telegram →
+                                    </a>
+                                </div>
+                                {status === 'error' && (
+                                    <p className="text-red-400 text-sm font-sans">Ошибка. Попробуйте ещё раз.</p>
+                                )}
+                            </form>
+                        )}
                     </div>
                 </section>
             </main>
