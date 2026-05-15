@@ -13,28 +13,29 @@ async function sendMessage(chatId: number | string, text: string, keyboard?: obj
   });
 }
 
-async function callClaude(systemPrompt: string, userMessage: string): Promise<string> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+async function callAI(systemPrompt: string, userMessage: string): Promise<string> {
+  const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) return '';
 
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
+  const res = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
+      'Authorization': `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
+      model: 'gpt-4o-mini',
       max_tokens: 400,
-      system: systemPrompt,
-      messages: [{ role: 'user', content: userMessage }],
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userMessage },
+      ],
     }),
   });
 
   if (!res.ok) return '';
-  const data = await res.json() as { content: Array<{ text: string }> };
-  return data.content?.[0]?.text ?? '';
+  const data = await res.json() as { choices: Array<{ message: { content: string } }> };
+  return data.choices?.[0]?.message?.content ?? '';
 }
 
 const SYSTEM_PROMPT = `Ты — консультант студии дизайна и ремонта Dark Matter Studio (Санкт-Петербург и Москва).
@@ -133,7 +134,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   // AI response (if ANTHROPIC_API_KEY is set) or fallback
-  const aiReply = await callClaude(SYSTEM_PROMPT, text);
+  const aiReply = await callAI(SYSTEM_PROMPT, text);
 
   if (aiReply) {
     await sendMessage(chatId, aiReply);
