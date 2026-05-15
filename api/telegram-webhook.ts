@@ -38,11 +38,26 @@ async function callAI(systemPrompt: string, userMessage: string): Promise<string
   return data.choices?.[0]?.message?.content ?? '';
 }
 
-const SYSTEM_PROMPT = `Ты — консультант студии дизайна и ремонта Dark Matter Studio (Санкт-Петербург и Москва).
+function getSystemPrompt(): string {
+  const now = new Date();
+  const msk = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Moscow' }));
+  const days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
+  const day = days[msk.getDay()];
+  const hours = msk.getHours();
+  const isWorking = hours >= 9 && hours < 21;
+  const timeStr = msk.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+  const dateStr = msk.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+  const workStatus = isWorking
+    ? 'Студия сейчас работает (9:00–21:00 МСК).'
+    : 'Сейчас нерабочее время. Студия работает с 9:00 до 21:00 МСК. Если клиент написал вечером или ночью — скажи, что свяжемся завтра.';
+
+  return `Ты — консультант студии дизайна и ремонта Dark Matter Studio (Санкт-Петербург и Москва).
+
+Контекст прямо сейчас: ${dateStr}, ${day}, ${timeStr} МСК. ${workStatus}
 
 О студии:
 - 7 лет на рынке, 84 завершённых объекта, 0 срывов сроков
-- Основатели: Никита Антонов (управляющий партнёр, образование СПбГАСУ) и Анастасия Антонова (главный дизайнер)
+- Основатели: Никита Антонов (управляющий партнёр, СПбГАСУ) и Анастасия Антонова (главный дизайнер)
 - Специализация: квартиры класса бизнес и премиум, ремонт под ключ
 - Цены: дизайн-проект от 2 500 ₽/м², ремонт под ключ от 25 000 ₽/м²
 - Гарантия: 2 года на все работы, 5 лет на инженерные системы
@@ -54,6 +69,7 @@ const SYSTEM_PROMPT = `Ты — консультант студии дизайн
 3. Не придумывай факты, которых нет в описании выше
 4. Пиши по-русски, без излишней формальности. Максимум 3-4 предложения в ответе.
 5. Если вопрос не про ремонт/дизайн — мягко переведи разговор на тему студии`;
+}
 
 // Simple in-memory state (works for low traffic, resets on cold start)
 const sessions: Record<string, { step: string; name?: string }> = {};
@@ -134,7 +150,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   // AI response (if ANTHROPIC_API_KEY is set) or fallback
-  const aiReply = await callAI(SYSTEM_PROMPT, text);
+  const aiReply = await callAI(getSystemPrompt(), text);
 
   if (aiReply) {
     await sendMessage(chatId, aiReply);
